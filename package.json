@@ -1,0 +1,29 @@
+{
+  "name": "result-driven-development",
+  "version": "1.0.0",
+  "description": "Result Driven Development: framework where humans own results and agents own code",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "ci": "node scripts/ci.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qursor-it/result-driven-development.git"
+  },
+  "keywords": [],
+  "author": "Bernardo Manfriani, Gianmarco Ferruzzi",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/qursor-it/result-driven-development/issues"
+  },
+  "homepage": "https://github.com/qursor-it/result-driven-development#readme",
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "yaml": "^2.9.1"
+  }
+}

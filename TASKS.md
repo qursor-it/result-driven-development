@@ -5,7 +5,7 @@ Format: `- [ ] T-NNN title — refs`. Done: `- [x]`. Blocked: append `BLOCKED: r
 ## M0 — Foundations
 
 - [x] T-000 Repository, manifesto, spec v0.1, schemas, ADR 0001–0012, example contracts, pilots
-- [ ] T-001 `package.json` (Node 24, ESM), `npm test`, CI script running tests and schema checks — AGENTS.md
+- [x] T-001 `package.json` (Node 24, ESM), `npm test`, CI script running tests and schema checks — AGENTS.md
 - [ ] T-002 `rdd validate <contract.yaml>`: validate against `spec/result-contract.schema.json`, JSON diagnostics; validate all `results/examples/` in tests — ADR-0009
 - [ ] T-003 Evidence writer: bundle per `spec/evidence.schema.json`, sha256 of contract and build, summary statistics (success rate, p50, p95, inconclusive rate) — ADR-0005, ADR-0006
 - [ ] T-004 Verdict function: thresholds + runs → observed/refuted/inconclusive with reasons; table-driven tests — spec §5–6
