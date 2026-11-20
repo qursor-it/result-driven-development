@@ -35,7 +35,10 @@ function validateCommand(files) {
   return ok ? 0 : 1;
 }
 
-const WITNESSES = new Map([["cli", () => import("../witnesses/cli/index.js")]]);
+const WITNESSES = new Map([
+  ["cli", () => import("../witnesses/cli/index.js")],
+  ["aleph", () => import("../witnesses/aleph/index.js")],
+]);
 
 async function witnessCommand(args) {
   let parsed;
@@ -78,8 +81,8 @@ async function witnessCommand(args) {
   if (!loadWitness) return usage(`unsupported witness kind: ${kind}`);
 
   try {
-    const { witnessCli } = await loadWitness();
-    const result = witnessCli({
+    const { witness } = await loadWitness();
+    const result = witness({
       contractPath,
       target: parsed.values.target,
       outDir: parsed.values.out,

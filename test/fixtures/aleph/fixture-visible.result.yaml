@@ -1,0 +1,18 @@
+id: R-905
+version: 1
+owner: Test Owner
+intent: Programs see the contract fixture files
+actor: test
+given: data/in.txt in the fixture directory
+outcome:
+  - text: the program reads the fixture file
+    oracle: 'stdout contains "fixture-data"'
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities:
+  fs.read: ["data"]
+witness:
+  kind: aleph
+  target: test/fixtures/aleph/fixture-visible.aph
+  timeout_s: 10

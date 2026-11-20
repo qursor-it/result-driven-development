@@ -1,0 +1,106 @@
+{
+  "result": "R-001",
+  "contract_sha256": "00818ffd9c578cbf68dbd7a18b0e56d88c5dd155f536c43da7840f5b8c9e28f6",
+  "build": {
+    "sha256": "81e3b291374cdd19e30e5a1f9dd37d1bc83b99813e2d95f4022f224b8767922b"
+  },
+  "witness": {
+    "kind": "aleph",
+    "version": "1.0.0+aleph.cd41f5081d0c"
+  },
+  "verdict": "observed",
+  "reasons": [],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 0.003468,
+      "interp_time_s": 0.004271,
+      "oracles": [
+        {
+          "oracle": "interp: stdout == \"3\\n\"",
+          "ok": true,
+          "found": "3\n"
+        },
+        {
+          "oracle": "interp: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "native: stdout == \"3\\n\"",
+          "ok": true,
+          "found": "3\n"
+        },
+        {
+          "oracle": "native: exit_code == 0",
+          "ok": true,
+          "found": 0
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "status": "success",
+      "time_to_result_s": 0.005624,
+      "interp_time_s": 0.00491,
+      "oracles": [
+        {
+          "oracle": "interp: stdout == \"3\\n\"",
+          "ok": true,
+          "found": "3\n"
+        },
+        {
+          "oracle": "interp: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "native: stdout == \"3\\n\"",
+          "ok": true,
+          "found": "3\n"
+        },
+        {
+          "oracle": "native: exit_code == 0",
+          "ok": true,
+          "found": 0
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "status": "success",
+      "time_to_result_s": 0.002442,
+      "interp_time_s": 0.003597,
+      "oracles": [
+        {
+          "oracle": "interp: stdout == \"3\\n\"",
+          "ok": true,
+          "found": "3\n"
+        },
+        {
+          "oracle": "interp: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "native: stdout == \"3\\n\"",
+          "ok": true,
+          "found": "3\n"
+        },
+        {
+          "oracle": "native: exit_code == 0",
+          "ok": true,
+          "found": 0
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 1,
+    "p50_time_to_result_s": 0.003468,
+    "p95_time_to_result_s": 0.005624,
+    "inconclusive_rate": 0
+  },
+  "at": "2026-11-20T20:23:07.020Z"
+}

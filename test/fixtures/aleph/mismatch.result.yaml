@@ -1,0 +1,17 @@
+id: R-904
+version: 1
+owner: Test Owner
+intent: Native output must match the interpreter output
+actor: test
+given: an aleph program whose native build differs
+outcome:
+  - text: the program prints the expected result
+    oracle: 'stdout == "hello"'
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities: {}
+witness:
+  kind: aleph
+  target: test/fixtures/aleph/mismatch.aph
+  timeout_s: 10

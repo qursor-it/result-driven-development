@@ -1,0 +1,17 @@
+id: R-901
+version: 1
+owner: Test Owner
+intent: Both Aleph engines print the expected result
+actor: test
+given: an aleph program
+outcome:
+  - text: the interpreter and the native build agree
+    oracle: 'stdout == "hello"'
+thresholds:
+  runs: 3
+  success_rate: 1.0
+capabilities: {}
+witness:
+  kind: aleph
+  target: test/fixtures/aleph/ok.aph
+  timeout_s: 10

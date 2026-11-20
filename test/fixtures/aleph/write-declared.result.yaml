@@ -1,0 +1,18 @@
+id: R-906
+version: 1
+owner: Test Owner
+intent: Declared file writes are reported as capabilities used
+actor: test
+given: an aleph program that writes under out/
+outcome:
+  - text: the program prints the expected result
+    oracle: 'stdout == "hello"'
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities:
+  fs.write: ["out"]
+witness:
+  kind: aleph
+  target: test/fixtures/aleph/write-declared.aph
+  timeout_s: 10

@@ -46,3 +46,14 @@ Append-only log written by agents. Newest entries at the bottom.
 - known limits (shortcut comments): no anti-result/capability detection; build sha256 of a .js target hashes the entry file only, not its imports
 - risk: R-002/R-005 time thresholds include Node startup; on a saturated VPS (load > 4) they can be exceeded
 - next: T-006
+
+## 2026-11-20T23:00 T-006 done
+- Witness `aleph`: witnesses/aleph/{witness.js,index.js}; registered in `rdd witness`; shared contract/oracle helpers moved to src/contract.js
+- ADR-0015 Proposed: --target is the build, fixtures in <contract dir>/fixtures/<id>/ copied fresh per engine run, check → build → N runs (interp + native both must pass), written files reported as capabilities_used.fs.write and undeclared writes refute, toolchain from $ALEPH, version = pkg+aleph.<binary sha12>
+- fixture results/examples/fixtures/R-001/data/in.txt ("uno due tre") added by the lead as Owner proxy (the contract's given)
+- toolchain: aleph built read-only from a detached worktree ~/projects/.worktrees/aleph-ro at aleph a96ce3e (sha256 cd41f508…), CARGO_BUILD_JOBS=1 nice
+- R-001 observed against Aleph's own program tests/aph/bench_wordcount.aph (a96ce3e): 3/3, interp and native print "3\n", p95 native 0.0056s; bundle sha256 de429379…
+  reproduce: ALEPH=<aleph-ro>/target/release/aleph node bin/rdd.js witness results/examples/R-001.result.yaml --target <aleph-ro>/tests/aph/bench_wordcount.aph --out <dir>
+- negative: bench_linecount and bench_upper as target → refuted exit 1
+- tests hermetic with test/fixtures/fake-aleph.js; npm run ci exit 0, 96/96
+- next: T-007

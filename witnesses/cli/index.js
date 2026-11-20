@@ -1,10 +1,9 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync, statSync } from "node:fs";
-import { parse } from "yaml";
+import { loadContract, prepareOracles } from "../../src/contract.js";
 import { buildBundle, sha256, writeBundle } from "../../src/evidence.js";
-import { validateContractFile } from "../../src/validate.js";
 import { decide } from "../../src/verdict.js";
-import { checkOracle, parseOracle } from "./oracle.js";
+import { checkOracle } from "./oracle.js";
 
 const VERSION = JSON.parse(
   readFileSync(new URL("../../package.json", import.meta.url), "utf8"),
@@ -25,16 +24,6 @@ function usage(code, message) {
 
 function round6(value) {
   return Math.round(value * 1e6) / 1e6;
-}
-
-function loadContract(contractPath) {
-  const validation = validateContractFile(contractPath);
-  if (!validation.ok) {
-    const error = usage("contract", `invalid contract: ${contractPath}`);
-    error.errors = validation.errors;
-    throw error;
-  }
-  return parse(readFileSync(contractPath, "utf8"));
 }
 
 function buildFields(target) {
@@ -120,16 +109,7 @@ export function witnessCli({ contractPath, target, outDir }) {
   const stdin = contract.witness.stdin ?? "";
   const timeout = (contract.witness.timeout_s ?? 60) * 1000;
 
-  const outcomes = contract.outcome ?? [];
-  const oracleTexts = outcomes
-    .filter((outcome) => outcome.oracle !== undefined && outcome.oracle !== null)
-    .map((outcome) => outcome.oracle);
-  const missingOracle = outcomes.some(
-    (outcome) => outcome.oracle === undefined || outcome.oracle === null,
-  );
-  const parsedOracles = oracleTexts.map((text) => ({ text, parsed: parseOracle(text) }));
-  const unsupported = parsedOracles.some(({ parsed }) => !parsed.supported);
-  const unobservable = missingOracle || parsedOracles.length === 0 || unsupported;
+  const { parsedOracles, unobservable } = prepareOracles(contract);
 
   const runs = [];
   for (let index = 0; index < contract.thresholds.runs; index++) {
@@ -178,3 +158,5 @@ export function witnessCli({ contractPath, target, outDir }) {
     bundleSha256: written.sha256,
   };
 }
+
+export const witness = witnessCli;

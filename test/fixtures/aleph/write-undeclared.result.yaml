@@ -1,0 +1,17 @@
+id: R-907
+version: 1
+owner: Test Owner
+intent: Undeclared file writes refute the result
+actor: test
+given: an aleph program that writes x.txt
+outcome:
+  - text: the program prints the expected result
+    oracle: 'stdout == "hello"'
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities: {}
+witness:
+  kind: aleph
+  target: test/fixtures/aleph/write-undeclared.aph
+  timeout_s: 10

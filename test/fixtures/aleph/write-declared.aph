@@ -1,0 +1,4 @@
+run: hello
+native: hello
+run_write: out/x.txt
+native_write: out/x.txt

@@ -1,0 +1,17 @@
+id: R-903
+version: 1
+owner: Test Owner
+intent: A failing native build refutes the result
+actor: test
+given: an aleph program whose build fails
+outcome:
+  - text: the program prints the expected result
+    oracle: 'stdout == "hello"'
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities: {}
+witness:
+  kind: aleph
+  target: test/fixtures/aleph/build-fail.aph
+  timeout_s: 10

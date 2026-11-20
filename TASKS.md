@@ -13,7 +13,7 @@ Format: `- [ ] T-NNN title — refs`. Done: `- [x]`. Blocked: append `BLOCKED: r
 ## M1 — Pilot Aleph
 
 - [x] T-005 Witness `cli`: run command with args/stdin/timeout N times, check stdout/exit-code oracles, write bundle, exit codes per spec §8 — ADR-0010
-- [ ] T-006 Witness `aleph`: `aleph check` must be clean, then run interpreter and native build; both must satisfy the oracles — pilots/aleph.md
+- [x] T-006 Witness `aleph`: `aleph check` must be clean, then run interpreter and native build; both must satisfy the oracles — pilots/aleph.md
 - [ ] T-007 Contracts R-101..R-115 from Aleph `bench/tasks.md`, hidden oracles kept outside the Builder's view — ADR-0004
 - [ ] T-008 Ledger: append verdicts to `ledger/results.jsonl`; `rdd ledger R-NNN` shows history — ADR-0011
 

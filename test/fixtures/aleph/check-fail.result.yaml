@@ -1,0 +1,17 @@
+id: R-902
+version: 1
+owner: Test Owner
+intent: A failing check refutes the result
+actor: test
+given: an aleph program that does not type check
+outcome:
+  - text: the program prints the expected result
+    oracle: 'stdout == "hello"'
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities: {}
+witness:
+  kind: aleph
+  target: test/fixtures/aleph/check-fail.aph
+  timeout_s: 10
