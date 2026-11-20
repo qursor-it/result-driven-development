@@ -21,3 +21,10 @@ Append-only log written by agents. Newest entries at the bottom.
 - contract results/R-002.result.yaml (lead as Owner proxy): witnessed by hand by the lead (cli Witness arrives in T-005): 3/3 runs exit 0, empty stdout, max 0.52s <= p95 2s; no bundle yet
 - verified: npm run ci exit 0, 18/18 tests
 - next: T-003
+
+## 2026-11-20T21:35 T-003 done
+- src/evidence.js: sha256/sha256File, nearest-rank percentile, summarize, buildBundle (fixed key order), writeBundle (schema-validated, deterministic bytes, returns bundle sha256)
+- ADR-0013 Proposed: statistic definitions (success_rate over conclusive runs, inconclusive_rate over all, nearest-rank p50/p95 over successful runs, missing stats omitted, 6-decimal rounding) — spec was silent
+- witness (lead): npm run ci exit 0, 36/36 tests; independent 20-run input gave 0.894737 / p50 9 / p95 17 / 0.05 as computed by hand; two writes byte-identical
+- Result: none (library, no user-facing tool yet)
+- next: T-004
