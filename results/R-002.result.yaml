@@ -1,0 +1,24 @@
+id: R-002
+version: 1
+owner: Gianmarco Ferruzzi
+intent: A contract author learns whether a Result Contract is valid with one command
+actor: Result Owner at the terminal
+given: the repository checkout with results/examples/R-001.result.yaml
+outcome:
+  - text: a valid contract is accepted
+    oracle: "exit_code == 0"
+  - text: nothing is printed on stdout for a valid contract
+    oracle: 'stdout == ""'
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 2
+anti_results:
+  - writes any file
+capabilities:
+  fs.read: ["results", "spec"]
+witness:
+  kind: cli
+  target: bin/rdd.js
+  args: ["validate", "results/examples/R-001.result.yaml"]
+  timeout_s: 10

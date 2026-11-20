@@ -4,6 +4,9 @@
   "description": "Result Driven Development: framework where humans own results and agents own code",
   "private": true,
   "type": "module",
+  "bin": {
+    "rdd": "bin/rdd.js"
+  },
   "scripts": {
     "test": "node --test",
     "ci": "node scripts/ci.js"

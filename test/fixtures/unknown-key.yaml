@@ -1,0 +1,14 @@
+id: R-901
+version: 1
+intent: The user can list projects.
+actor: developer
+given: an empty database
+outcome:
+  - text: one project is returned
+    oracle: "GET /api/projects returns 1 item"
+thresholds:
+  runs: 20
+capabilities: {}
+witness:
+  kind: cli
+unexpected: true
