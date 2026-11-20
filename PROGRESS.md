@@ -28,3 +28,10 @@ Append-only log written by agents. Newest entries at the bottom.
 - witness (lead): npm run ci exit 0, 36/36 tests; independent 20-run input gave 0.894737 / p50 9 / p95 17 / 0.05 as computed by hand; two writes byte-identical
 - Result: none (library, no user-facing tool yet)
 - next: T-004
+
+## 2026-11-20T21:55 T-004 done
+- src/verdict.js: decide({thresholds, runs, antiResults}) → {verdict, reasons}, pure, reuses summarize
+- ADR-0014 Proposed: check order (anti-result → run count → inconclusive rate > 0.10 → threshold miss → cannot evaluate → observed), success_rate default 1.0, per-run bounds for max_steps/max_memory_mb/serious_a11y_violations, unmeasured or unknown thresholds → inconclusive
+- witness (lead): npm run ci exit 0, 56/56 tests; 6 independent cases (R-001/R-014 shapes, anti-result, unmeasured a11y) gave the expected verdicts
+- M0 complete: P2 (browser Witness) can start
+- next: T-005
