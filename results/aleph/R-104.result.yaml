@@ -1,0 +1,22 @@
+id: R-104
+version: 1
+owner: Gianmarco Ferruzzi
+intent: A user gets all primes below 100, one per line
+actor: CLI user
+given: "the program is run with no arguments"
+outcome:
+  - text: "prints the primes below 100, one per line"
+  - text: "the program exits normally"
+  - text: "nothing is printed on stderr"
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 1
+anti_results:
+  - writes a file outside the declared fs.write paths
+hidden: true
+capabilities: {}
+witness:
+  kind: aleph
+  target: bench_primes.aph
+  timeout_s: 30

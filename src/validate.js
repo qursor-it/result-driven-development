@@ -12,9 +12,23 @@ function schemaErrors() {
   }));
 }
 
+function hiddenOracleErrors(contract) {
+  if (!contract || contract.hidden !== true || !Array.isArray(contract.outcome)) return [];
+  return contract.outcome
+    .map((outcome, index) => ({ outcome, index }))
+    .filter(({ outcome }) => outcome?.oracle !== undefined && outcome?.oracle !== null)
+    .map(({ index }) => ({
+      code: "hidden",
+      path: `/outcome/${index}/oracle`,
+      message: "hidden contract must not carry inline oracles",
+    }));
+}
+
 export function validateContract(object) {
   const ok = contractValidator(object);
-  return { ok, errors: ok ? [] : schemaErrors() };
+  const errors = ok ? [] : schemaErrors();
+  const hidden = hiddenOracleErrors(object);
+  return { ok: ok && hidden.length === 0, errors: [...errors, ...hidden] };
 }
 
 export function validateContractFile(file) {

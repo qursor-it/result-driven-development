@@ -1,0 +1,3 @@
+id: R-921
+outcome:
+  - oracle: 'file "out/x.txt" == "wrong\n"'

@@ -1,0 +1,23 @@
+id: R-108
+version: 1
+owner: Gianmarco Ferruzzi
+intent: A user gets the number of non-empty lines in data/in.txt
+actor: CLI user
+given: "the program is run with no arguments; data/in.txt is the Aleph bench input file"
+outcome:
+  - text: "prints the number of non-empty lines"
+  - text: "the program exits normally"
+  - text: "nothing is printed on stderr"
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 1
+anti_results:
+  - writes a file outside the declared fs.write paths
+hidden: true
+capabilities:
+  fs.read: ["data"]
+witness:
+  kind: aleph
+  target: bench_linecount.aph
+  timeout_s: 30

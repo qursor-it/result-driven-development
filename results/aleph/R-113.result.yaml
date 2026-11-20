@@ -1,0 +1,25 @@
+id: R-113
+version: 1
+owner: Gianmarco Ferruzzi
+intent: A user gets an uppercase copy of data/in.txt in out/up.txt
+actor: CLI user
+given: "the program is run with no arguments; data/in.txt is the Aleph bench input file"
+outcome:
+  - text: "writes the uppercase text of data/in.txt to out/up.txt"
+  - text: "nothing is printed on stdout"
+  - text: "the program exits normally"
+  - text: "nothing is printed on stderr"
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 1
+anti_results:
+  - writes a file outside the declared fs.write paths
+hidden: true
+capabilities:
+  fs.read: ["data"]
+  fs.write: ["out"]
+witness:
+  kind: aleph
+  target: bench_upper.aph
+  timeout_s: 30

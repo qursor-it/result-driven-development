@@ -1,0 +1,18 @@
+id: R-911
+version: 1
+owner: Test Owner
+intent: A wrong hidden oracle refutes the result
+actor: test
+given: the echo fixture
+outcome:
+  - text: prints hello
+thresholds:
+  runs: 1
+  success_rate: 1.0
+hidden: true
+capabilities: {}
+witness:
+  kind: cli
+  target: test/fixtures/echo.js
+  args: ["hello"]
+  timeout_s: 10

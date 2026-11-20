@@ -1,0 +1,5 @@
+id: R-111
+outcome:
+  - oracle: "stdout == \"three two one\\nb a\\n\""
+  - oracle: "exit_code == 0"
+  - oracle: "stderr == \"\""

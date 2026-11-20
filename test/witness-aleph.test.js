@@ -11,6 +11,7 @@ const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const WITNESS = join(ROOT, "witnesses", "aleph", "witness.js");
 const RDD = join(ROOT, "bin", "rdd.js");
 const FIXTURES = join(ROOT, "test", "fixtures", "aleph");
+const HIDDEN = join(ROOT, "test", "fixtures", "hidden");
 const ALEPH = join(ROOT, "test", "fixtures", "fake-aleph.js");
 const validateEvidence = compileSchema("evidence");
 
@@ -74,6 +75,35 @@ test("aleph observes a result on both engines", (t) => {
   assert.equal(verdictLine.verdict, "observed");
   assert.equal(verdictLine.bundle, join(out, "bundle.json"));
   assert.match(verdictLine.sha256, /^[0-9a-f]{64}$/);
+});
+
+test("aleph observes a hidden file oracle on both engines", (t) => {
+  const out = tempDir(t);
+  const result = runWitness([join(HIDDEN, "R-920.result.yaml"), "--out", out], {
+    RDD_HIDDEN_DIR: HIDDEN,
+  });
+
+  assert.equal(result.status, 0, result.stderr);
+  const bundle = readBundle(out);
+  assert.equal(bundle.verdict, "observed");
+  assert.deepEqual(
+    bundle.runs[0].oracles.map((oracle) => oracle.ok),
+    [true, true],
+  );
+  assert.match(bundle.runs[0].oracles[0].oracle, /^interp: file "out\/x.txt" ==/);
+  assert.match(bundle.runs[0].oracles[1].oracle, /^native: file "out\/x.txt" ==/);
+});
+
+test("a wrong hidden aleph file oracle refutes the result", (t) => {
+  const out = tempDir(t);
+  const result = runWitness([join(HIDDEN, "R-921.result.yaml"), "--out", out], {
+    RDD_HIDDEN_DIR: HIDDEN,
+  });
+
+  assert.equal(result.status, 1, result.stderr);
+  const bundle = readBundle(out);
+  assert.equal(bundle.verdict, "refuted");
+  assert.ok(bundle.runs[0].oracles.every((oracle) => oracle.ok === false));
 });
 
 test("a failing aleph check refutes the result without running", (t) => {

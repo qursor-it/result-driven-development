@@ -1,0 +1,136 @@
+{
+  "result": "R-106",
+  "contract_sha256": "d606e6c69da2de33f677c7536a3dc60e70697664d2cf749109d3f4c55812a718",
+  "build": {
+    "sha256": "398efed9a56bc70c4692a404d4c82747a7815f72b44a5ea83e94bc6e9c8fbc65"
+  },
+  "witness": {
+    "kind": "aleph",
+    "version": "1.0.0+aleph.cd41f5081d0c"
+  },
+  "verdict": "observed",
+  "reasons": [],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 0.048165,
+      "interp_time_s": 0.003506,
+      "oracles": [
+        {
+          "oracle": "interp: stdout == \"yes\\nno\\n\"",
+          "ok": true,
+          "found": "yes\nno\n"
+        },
+        {
+          "oracle": "interp: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "interp: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "native: stdout == \"yes\\nno\\n\"",
+          "ok": true,
+          "found": "yes\nno\n"
+        },
+        {
+          "oracle": "native: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "native: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "status": "success",
+      "time_to_result_s": 0.002769,
+      "interp_time_s": 0.003638,
+      "oracles": [
+        {
+          "oracle": "interp: stdout == \"yes\\nno\\n\"",
+          "ok": true,
+          "found": "yes\nno\n"
+        },
+        {
+          "oracle": "interp: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "interp: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "native: stdout == \"yes\\nno\\n\"",
+          "ok": true,
+          "found": "yes\nno\n"
+        },
+        {
+          "oracle": "native: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "native: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "status": "success",
+      "time_to_result_s": 0.002742,
+      "interp_time_s": 0.00293,
+      "oracles": [
+        {
+          "oracle": "interp: stdout == \"yes\\nno\\n\"",
+          "ok": true,
+          "found": "yes\nno\n"
+        },
+        {
+          "oracle": "interp: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "interp: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "native: stdout == \"yes\\nno\\n\"",
+          "ok": true,
+          "found": "yes\nno\n"
+        },
+        {
+          "oracle": "native: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "native: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 1,
+    "p50_time_to_result_s": 0.002769,
+    "p95_time_to_result_s": 0.048165,
+    "inconclusive_rate": 0
+  },
+  "at": "2026-11-20T20:45:51.696Z"
+}

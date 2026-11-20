@@ -1,0 +1,23 @@
+id: R-111
+version: 1
+owner: Gianmarco Ferruzzi
+intent: A user gets the words of each argument in reverse order
+actor: CLI user
+given: "the program is run with arguments \"one two three\" \"a b\""
+outcome:
+  - text: "prints each argument with its words reversed"
+  - text: "the program exits normally"
+  - text: "nothing is printed on stderr"
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 1
+anti_results:
+  - writes a file outside the declared fs.write paths
+hidden: true
+capabilities: {}
+witness:
+  kind: aleph
+  target: bench_reverse.aph
+  args: ["one two three", "a b"]
+  timeout_s: 30

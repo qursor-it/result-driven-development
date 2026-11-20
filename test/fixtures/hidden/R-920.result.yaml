@@ -1,0 +1,18 @@
+id: R-920
+version: 1
+owner: Test Owner
+intent: A hidden aleph file oracle observes a written file
+actor: test
+given: an aleph program that writes out/x.txt
+outcome:
+  - text: the program writes the expected file
+thresholds:
+  runs: 1
+  success_rate: 1.0
+hidden: true
+capabilities:
+  fs.write: ["out"]
+witness:
+  kind: aleph
+  target: test/fixtures/aleph/hidden-file.aph
+  timeout_s: 10

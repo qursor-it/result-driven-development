@@ -1,0 +1,3 @@
+id: R-920
+outcome:
+  - oracle: 'file "out/x.txt" == "write out/x.txt\n"'

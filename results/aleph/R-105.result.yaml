@@ -1,0 +1,22 @@
+id: R-105
+version: 1
+owner: Gianmarco Ferruzzi
+intent: A user gets fizzbuzz from 1 to 30
+actor: CLI user
+given: "the program is run with no arguments"
+outcome:
+  - text: "prints fizzbuzz from 1 to 30, one item per line"
+  - text: "the program exits normally"
+  - text: "nothing is printed on stderr"
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 1
+anti_results:
+  - writes a file outside the declared fs.write paths
+hidden: true
+capabilities: {}
+witness:
+  kind: aleph
+  target: bench_fizzbuzz.aph
+  timeout_s: 30

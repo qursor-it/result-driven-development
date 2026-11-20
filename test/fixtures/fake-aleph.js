@@ -39,6 +39,7 @@ function engineRun(text, prefix) {
     process.stdout.write(readFileSync(file, "utf8"));
   }
   writeFiles(text, `${prefix}_write`);
+  writeFiles(text, "write");
   process.exit(Number(value(text, `${prefix}_exit`) ?? 0));
 }
 
@@ -79,6 +80,10 @@ if (command === "build") {
     lines.push(
       `fs.writeFileSync(${JSON.stringify(file)}, ${JSON.stringify(`native_write ${file}\n`)});`,
     );
+  }
+  for (const file of values(text, "write")) {
+    lines.push(`fs.mkdirSync(path.dirname(${JSON.stringify(file)}) || ".", { recursive: true });`);
+    lines.push(`fs.writeFileSync(${JSON.stringify(file)}, ${JSON.stringify(`write ${file}\n`)});`);
   }
   lines.push(`process.exit(${exit});`);
 

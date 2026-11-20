@@ -12,6 +12,7 @@ const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const WITNESS = join(ROOT, "witnesses", "cli", "witness.js");
 const RDD = join(ROOT, "bin", "rdd.js");
 const FIXTURES = join(ROOT, "test", "fixtures");
+const HIDDEN = join(FIXTURES, "hidden");
 const validateEvidence = compileSchema("evidence");
 
 function tempDir(t) {
@@ -20,8 +21,12 @@ function tempDir(t) {
   return dir;
 }
 
-function runWitness(args) {
-  return spawnSync(process.execPath, [WITNESS, ...args], { cwd: ROOT, encoding: "utf8" });
+function runWitness(args, env = {}) {
+  return spawnSync(process.execPath, [WITNESS, ...args], {
+    cwd: ROOT,
+    encoding: "utf8",
+    env: { ...process.env, ...env },
+  });
 }
 
 function runRdd(args) {
@@ -59,6 +64,40 @@ test("parseOracle decodes JSON escapes in string literals", () => {
   assert.equal(oracle.supported, true);
   assert.equal(oracle.expected, 'a"b\\c\n');
   assert.equal(checkOracle(oracle, { stdout: 'a"b\\c\n' }).ok, true);
+});
+
+test("parseOracle supports file oracles", () => {
+  assert.deepEqual(parseOracle('file "out/x.txt" == "hello"'), {
+    supported: true,
+    stream: "file",
+    path: "out/x.txt",
+    op: "==",
+    expected: "hello",
+  });
+});
+
+test("parseOracle decodes JSON escapes in file oracles", () => {
+  const oracle = parseOracle('file "dir/a\\"b.txt" == "a\\nb"');
+  assert.equal(oracle.supported, true);
+  assert.equal(oracle.path, 'dir/a"b.txt');
+  assert.equal(oracle.expected, "a\nb");
+});
+
+test("parseOracle rejects absolute and parent file paths", () => {
+  assert.equal(parseOracle('file "/etc/passwd" == "x"').supported, false);
+  assert.equal(parseOracle('file "C:\\\\Windows\\\\x" == "x"').supported, false);
+  assert.equal(parseOracle('file "out/../secret" == "x"').supported, false);
+  assert.equal(parseOracle('file "..\\\\secret" == "x"').supported, false);
+  assert.equal(parseOracle('file "out/x.txt" != "x"').supported, false);
+});
+
+test("checkOracle reads files through observed.readFile", () => {
+  const oracle = parseOracle('file "out/x.txt" == "hello"');
+  assert.equal(checkOracle(oracle, { readFile: () => "hello" }).ok, true);
+  assert.equal(checkOracle(oracle, { readFile: () => "bye" }).ok, false);
+  const missing = checkOracle(oracle, { readFile: () => null });
+  assert.equal(missing.ok, false);
+  assert.equal(missing.found, null);
 });
 
 const unsupportedOracles = [
@@ -103,16 +142,17 @@ test("checkOracle truncates found stream values to 200 characters", () => {
   assert.equal(result.found.length, 200);
 });
 
-test("witnessing R-002 observes the result", (t) => {
+// fixture = R-002 without its time threshold: the time bound is evidence, not a unit test (flaky under VPS load)
+test("witnessing the validate fixture observes the result", (t) => {
   const out = tempDir(t);
-  const result = runWitness(["results/R-002.result.yaml", "--out", out]);
+  const result = runWitness(["test/fixtures/witness-validate.result.yaml", "--out", out]);
 
   assert.equal(result.status, 0, result.stderr);
   assert.equal(result.stdout, "");
 
   const bundle = readBundle(out);
   assert.equal(validateEvidence(bundle), true, JSON.stringify(validateEvidence.errors));
-  assert.equal(bundle.result, "R-002");
+  assert.equal(bundle.result, "R-930");
   assert.equal(bundle.verdict, "observed");
   assert.equal(bundle.witness.kind, "cli");
   assert.equal(bundle.runs.length, 3);
@@ -186,7 +226,7 @@ test("missing --out exits 2 with a JSON diagnostic", () => {
 
 test("rdd witness dispatches the cli kind", (t) => {
   const out = tempDir(t);
-  const result = runRdd(["witness", "results/R-002.result.yaml", "--out", out]);
+  const result = runRdd(["witness", "test/fixtures/witness-validate.result.yaml", "--out", out]);
 
   assert.equal(result.status, 0, result.stderr);
   assert.equal(result.stdout, "");
@@ -204,4 +244,73 @@ test("rdd witness rejects an unimplemented kind with exit 2", (t) => {
   const line = diagnostics(result.stderr).find((entry) => entry.level === "error");
   assert.equal(line.code, "usage");
   assert.match(line.message, /browser/);
+});
+
+test("a hidden cli contract loads its oracles from RDD_HIDDEN_DIR", (t) => {
+  const out = tempDir(t);
+  const result = runWitness([join(HIDDEN, "R-910.result.yaml"), "--out", out], {
+    RDD_HIDDEN_DIR: HIDDEN,
+  });
+
+  assert.equal(result.status, 0, result.stderr);
+  const bundle = readBundle(out);
+  assert.equal(bundle.verdict, "observed");
+  assert.deepEqual(
+    bundle.runs[0].oracles.map((oracle) => oracle.ok),
+    [true, true],
+  );
+  assert.equal(bundle.runs[0].oracles[1].oracle, 'file "test/fixtures/hidden/data.txt" == "hidden data\\n"');
+});
+
+test("a wrong hidden cli oracle refutes the result", (t) => {
+  const out = tempDir(t);
+  const result = runWitness([join(HIDDEN, "R-911.result.yaml"), "--out", out], {
+    RDD_HIDDEN_DIR: HIDDEN,
+  });
+
+  assert.equal(result.status, 1, result.stderr);
+  const bundle = readBundle(out);
+  assert.equal(bundle.verdict, "refuted");
+  assert.equal(bundle.runs[0].oracles[0].ok, false);
+});
+
+test("a missing hidden oracle file is inconclusive with a reason", (t) => {
+  const out = tempDir(t);
+  const result = runWitness([join(HIDDEN, "R-912.result.yaml"), "--out", out], {
+    RDD_HIDDEN_DIR: HIDDEN,
+  });
+
+  assert.equal(result.status, 3, result.stderr);
+  const bundle = readBundle(out);
+  assert.equal(bundle.verdict, "inconclusive");
+  assert.ok(
+    bundle.reasons.includes(`hidden oracles not found: ${join(HIDDEN, "R-912.oracles.yaml")}`),
+    JSON.stringify(bundle.reasons),
+  );
+});
+
+test("a hidden oracle outcome count mismatch exits 2", (t) => {
+  const out = tempDir(t);
+  const result = runWitness([join(HIDDEN, "R-913.result.yaml"), "--out", out], {
+    RDD_HIDDEN_DIR: HIDDEN,
+  });
+
+  assert.equal(result.status, 2, result.stderr);
+  assert.equal(result.stdout, "");
+  const line = diagnostics(result.stderr).find((entry) => entry.level === "error");
+  assert.equal(line.code, "hidden");
+  assert.match(line.message, /count mismatch/);
+});
+
+test("a hidden oracle id mismatch exits 2", (t) => {
+  const out = tempDir(t);
+  const result = runWitness([join(HIDDEN, "R-914.result.yaml"), "--out", out], {
+    RDD_HIDDEN_DIR: HIDDEN,
+  });
+
+  assert.equal(result.status, 2, result.stderr);
+  assert.equal(result.stdout, "");
+  const line = diagnostics(result.stderr).find((entry) => entry.level === "error");
+  assert.equal(line.code, "hidden");
+  assert.match(line.message, /id mismatch/);
 });

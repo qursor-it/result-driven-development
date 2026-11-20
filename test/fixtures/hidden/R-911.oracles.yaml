@@ -1,0 +1,3 @@
+id: R-911
+outcome:
+  - oracle: 'stdout == "bye"'

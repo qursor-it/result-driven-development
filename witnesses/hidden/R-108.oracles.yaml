@@ -1,0 +1,5 @@
+id: R-108
+outcome:
+  - oracle: "stdout == \"2\\n\""
+  - oracle: "exit_code == 0"
+  - oracle: "stderr == \"\""

@@ -58,6 +58,23 @@ test("a contract with an unknown top-level key fails", () => {
   assert.ok(result.errors.some((error) => error.code === "schema"));
 });
 
+test("a hidden contract without inline oracles validates", () => {
+  const result = validateContractFile(join(FIXTURES, "hidden", "R-910.result.yaml"));
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+});
+
+test("a hidden contract with an inline oracle fails with code hidden", () => {
+  const result = validateContractFile(join(FIXTURES, "hidden", "R-915.result.yaml"));
+  assert.equal(result.ok, false);
+  assert.deepEqual(result.errors, [
+    {
+      code: "hidden",
+      path: "/outcome/0/oracle",
+      message: "hidden contract must not carry inline oracles",
+    },
+  ]);
+});
+
 test("validateContract reports schema errors as paths", () => {
   const result = validateContract({ ...validContract, unexpected: true });
   assert.equal(result.ok, false);

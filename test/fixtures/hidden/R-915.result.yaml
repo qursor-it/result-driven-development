@@ -1,0 +1,19 @@
+id: R-915
+version: 1
+owner: Test Owner
+intent: A hidden contract must not carry an inline oracle
+actor: test
+given: a hidden contract with an inline oracle
+outcome:
+  - text: prints hello
+    oracle: 'stdout == "hello"'
+thresholds:
+  runs: 1
+  success_rate: 1.0
+hidden: true
+capabilities: {}
+witness:
+  kind: cli
+  target: test/fixtures/echo.js
+  args: ["hello"]
+  timeout_s: 10

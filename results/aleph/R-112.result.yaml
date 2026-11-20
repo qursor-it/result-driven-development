@@ -1,0 +1,23 @@
+id: R-112
+version: 1
+owner: Gianmarco Ferruzzi
+intent: A user gets the gcd and lcm of two integers
+actor: CLI user
+given: "the program is run with arguments \"48\" \"18\""
+outcome:
+  - text: "prints gcd and lcm of the two arguments"
+  - text: "the program exits normally"
+  - text: "nothing is printed on stderr"
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 1
+anti_results:
+  - writes a file outside the declared fs.write paths
+hidden: true
+capabilities: {}
+witness:
+  kind: aleph
+  target: bench_gcd.aph
+  args: ["48", "18"]
+  timeout_s: 30

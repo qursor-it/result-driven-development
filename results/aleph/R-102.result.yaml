@@ -1,0 +1,23 @@
+id: R-102
+version: 1
+owner: Gianmarco Ferruzzi
+intent: A user gets the sum of the integers given as arguments
+actor: CLI user
+given: "the program is run with arguments \"1\" \"2\" \"3\""
+outcome:
+  - text: "prints the sum of the arguments"
+  - text: "the program exits normally"
+  - text: "nothing is printed on stderr"
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 1
+anti_results:
+  - writes a file outside the declared fs.write paths
+hidden: true
+capabilities: {}
+witness:
+  kind: aleph
+  target: bench_total.aph
+  args: ["1", "2", "3"]
+  timeout_s: 30

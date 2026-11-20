@@ -1,0 +1,5 @@
+id: R-110
+outcome:
+  - oracle: "stdout == \"12.0\\n\""
+  - oracle: "exit_code == 0"
+  - oracle: "stderr == \"\""

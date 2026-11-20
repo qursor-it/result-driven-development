@@ -137,6 +137,13 @@ function runEngine({ command, commandArgs, cwd, stdin, timeout, parsedOracles, l
     stdout: result.stdout ?? "",
     stderr: result.stderr ?? "",
     exitCode: result.status,
+    readFile: (path) => {
+      try {
+        return readFileSync(join(cwd, path), "utf8");
+      } catch {
+        return null;
+      }
+    },
   };
 
   const oracles = parsedOracles.map(({ text, parsed }) => {
@@ -281,7 +288,7 @@ export function witnessAleph({
     const args = contract.witness.args ?? [];
     const stdin = contract.witness.stdin ?? "";
     const timeout = (contract.witness.timeout_s ?? 60) * 1000;
-    const { parsedOracles, unobservable } = prepareOracles(contract);
+    const { parsedOracles, unobservable, missingHidden } = prepareOracles(contract);
 
     const runs = [];
     const allWritten = new Set();
@@ -343,11 +350,17 @@ export function witnessAleph({
 
     const written = [...allWritten].sort();
     const { capabilitiesUsed, antiResults } = capabilityResults(contract, written);
-    const { verdict, reasons } = decide({
+    const decision = decide({
       thresholds: contract.thresholds,
       runs,
       antiResults,
     });
+    const { reasons } = decision;
+    let { verdict } = decision;
+    if (missingHidden) {
+      reasons.push(`hidden oracles not found: ${missingHidden}`);
+      if (verdict === "observed") verdict = "inconclusive";
+    }
 
     return finish({
       contract,

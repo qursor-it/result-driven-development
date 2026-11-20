@@ -1,0 +1,5 @@
+id: R-112
+outcome:
+  - oracle: "stdout == \"gcd 6 lcm 144\\n\""
+  - oracle: "exit_code == 0"
+  - oracle: "stderr == \"\""

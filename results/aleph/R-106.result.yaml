@@ -1,0 +1,23 @@
+id: R-106
+version: 1
+owner: Gianmarco Ferruzzi
+intent: A user learns which arguments are palindromes, ignoring case
+actor: CLI user
+given: "the program is run with arguments \"Level\" \"abc\""
+outcome:
+  - text: "prints yes or no for each argument"
+  - text: "the program exits normally"
+  - text: "nothing is printed on stderr"
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 1
+anti_results:
+  - writes a file outside the declared fs.write paths
+hidden: true
+capabilities: {}
+witness:
+  kind: aleph
+  target: bench_palindrome.aph
+  args: ["Level", "abc"]
+  timeout_s: 30

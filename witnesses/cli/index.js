@@ -1,5 +1,6 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync, statSync } from "node:fs";
+import { join } from "node:path";
 import { loadContract, prepareOracles } from "../../src/contract.js";
 import { buildBundle, sha256, writeBundle } from "../../src/evidence.js";
 import { decide } from "../../src/verdict.js";
@@ -69,6 +70,13 @@ function runOnce({ n, target, args, stdin, timeout, parsedOracles, unobservable 
     stdout: result.stdout ?? "",
     stderr: result.stderr ?? "",
     exitCode: result.status,
+    readFile: (path) => {
+      try {
+        return readFileSync(join(process.cwd(), path), "utf8");
+      } catch {
+        return null;
+      }
+    },
   };
 
   const oracles = parsedOracles.map(({ text, parsed }) => {
@@ -109,7 +117,7 @@ export function witnessCli({ contractPath, target, outDir }) {
   const stdin = contract.witness.stdin ?? "";
   const timeout = (contract.witness.timeout_s ?? 60) * 1000;
 
-  const { parsedOracles, unobservable } = prepareOracles(contract);
+  const { parsedOracles, unobservable, missingHidden } = prepareOracles(contract);
 
   const runs = [];
   for (let index = 0; index < contract.thresholds.runs; index++) {
@@ -127,11 +135,17 @@ export function witnessCli({ contractPath, target, outDir }) {
   }
 
   // shortcut: the cli Witness does not detect anti-results or capability use yet, upgrade when a sandbox is available.
-  const { verdict, reasons } = decide({
+  const decision = decide({
     thresholds: contract.thresholds,
     runs,
     antiResults: [],
   });
+  const { reasons } = decision;
+  let { verdict } = decision;
+  if (missingHidden) {
+    reasons.push(`hidden oracles not found: ${missingHidden}`);
+    if (verdict === "observed") verdict = "inconclusive";
+  }
 
   const bundle = buildBundle({
     result: contract.id,

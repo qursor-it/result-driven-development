@@ -1,0 +1,4 @@
+id: R-910
+outcome:
+  - oracle: 'stdout == "hello"'
+  - oracle: 'file "test/fixtures/hidden/data.txt" == "hidden data\n"'

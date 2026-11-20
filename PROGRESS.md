@@ -57,3 +57,30 @@ Append-only log written by agents. Newest entries at the bottom.
 - negative: bench_linecount and bench_upper as target → refuted exit 1
 - tests hermetic with test/fixtures/fake-aleph.js; npm run ci exit 0, 96/96
 - next: T-007
+
+## 2026-11-20T23:50 T-007 done
+- contracts results/aleph/R-101..R-115, one per task in Aleph bench/tasks.md, written by the lead as Owner proxy from Aleph's goldens (tests/aph/bench_*.out/.args, expect/out/up.txt); hidden: true, outcome texts only
+- hidden oracles in witnesses/hidden/R-1NN.oracles.yaml (stdout/file + exit_code == 0 + stderr == ""); fixtures results/aleph/fixtures/R-107,R-108,R-113 (Aleph data/in.txt, out/ for upper)
+- ADR-0016 Proposed: hidden oracle location, validate rejects inline oracles on hidden contracts, new `file "<path>" == "<text>"` oracle
+- builder implemented loading (RDD_HIDDEN_DIR override for tests) and the file oracle without reading witnesses/hidden/
+- R-109 covers the arguments case of maxmin; the no-arguments error case (bench_maxmin_none) is not a contract yet
+- witness (lead, aleph a96ce3e, Aleph's own programs as builds): R-101..R-115 all observed 3/3, p95 native ≤ 0.087s; R-101 with bench_evens → refuted; hidden dir missing → inconclusive exit 3
+- tests: the two observed cli tests now use test/fixtures/witness-validate.result.yaml (R-002 without its time bound) — under VPS load 5 the 2s bound flaked once inside the parallel test run; R-002 itself unchanged
+- verified: npm run ci exit 0, 124/124
+- bundle sha256:
+  - R-101 cfec9a6aa0ba83a6493523ab22be22b3edf02db82fb5e3eb1fb78f9f334349ba
+  - R-102 2d20b23ce5591ec445456764bafb67bfbeb71bd3dc3dd2fee34f4f01f0226283
+  - R-103 398f90eff354213871a32a29226c61590b5ed1fb80eac0e32235c58045e08b21
+  - R-104 cdec51413f87aefb13bfdcb75cd2b647b3e1dde26b367d2363cbcc5141440ae3
+  - R-105 82e7c787c4f32dd4e38800a244775db0678d3e6728a1d207ce5d7b4c7d81f59f
+  - R-106 26587570837740922aed4e5e027b8f5bbb0f2f85d51a27fa07927f537a7e5955
+  - R-107 dffb130618b9cf876ae531a0b176218895dbaf78c5c7fa31057d8042d42cf245
+  - R-108 acc46af770b0ee3fb409af90ef65e391b59f84a2eca307c7f59dc14efd19aa48
+  - R-109 a5447705afd499f5e5d2c6f688be09da6bba6dec15eb1584ee50fef4ec30f8ea
+  - R-110 cdaf57c4daffb6ff840f97b9b0b4da7b3467890c0ba55a46fc06d959e34c4f27
+  - R-111 c63c6babcf46f8d5ecd050f66edfb2c95e32d9b0b737f4b23e507f60b6af3e8f
+  - R-112 cb96ddcc628cbc9c0aff3d7449b68853445fdc908139775c9aab82cf2949364f
+  - R-113 dbb9da422dfe98d173bf40e31eea7285d63dcdf8f2978cfdcb789e589cf50c56
+  - R-114 128515c29f5fc5e518fd0ed5a3e77dd75ffc41c115254e0a5ccd14d5143cb23f
+  - R-115 52a0ce5e87de74d72d5960e571b8e6a56857f893ce6e628317fccffd3128069d
+- next: T-008

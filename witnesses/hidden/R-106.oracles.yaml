@@ -1,0 +1,5 @@
+id: R-106
+outcome:
+  - oracle: "stdout == \"yes\\nno\\n\""
+  - oracle: "exit_code == 0"
+  - oracle: "stderr == \"\""

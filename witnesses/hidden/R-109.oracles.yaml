@@ -1,0 +1,5 @@
+id: R-109
+outcome:
+  - oracle: "stdout == \"max 9 min -1\\n\""
+  - oracle: "exit_code == 0"
+  - oracle: "stderr == \"\""

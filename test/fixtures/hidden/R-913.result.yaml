@@ -1,0 +1,19 @@
+id: R-913
+version: 1
+owner: Test Owner
+intent: A hidden oracle outcome count mismatch is a usage error
+actor: test
+given: a hidden file with fewer outcomes than the contract
+outcome:
+  - text: prints hello
+  - text: exits cleanly
+thresholds:
+  runs: 1
+  success_rate: 1.0
+hidden: true
+capabilities: {}
+witness:
+  kind: cli
+  target: test/fixtures/echo.js
+  args: ["hello"]
+  timeout_s: 10

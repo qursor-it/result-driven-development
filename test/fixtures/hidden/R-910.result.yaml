@@ -1,0 +1,19 @@
+id: R-910
+version: 1
+owner: Test Owner
+intent: A hidden contract loads its oracles from the hidden directory
+actor: test
+given: the echo fixture and a fixture data file
+outcome:
+  - text: prints hello
+  - text: the fixture data file is unchanged
+thresholds:
+  runs: 1
+  success_rate: 1.0
+hidden: true
+capabilities: {}
+witness:
+  kind: cli
+  target: test/fixtures/echo.js
+  args: ["hello"]
+  timeout_s: 10

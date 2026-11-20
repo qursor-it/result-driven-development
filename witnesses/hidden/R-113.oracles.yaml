@@ -1,0 +1,6 @@
+id: R-113
+outcome:
+  - oracle: "file \"out/up.txt\" == \"THE QUICK BROWN\\nFOX JUMPS\\n\""
+  - oracle: "stdout == \"\""
+  - oracle: "exit_code == 0"
+  - oracle: "stderr == \"\""

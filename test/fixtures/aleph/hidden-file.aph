@@ -1,0 +1,3 @@
+run: hello
+native: hello
+write: out/x.txt

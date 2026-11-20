@@ -1,0 +1,171 @@
+{
+  "result": "R-113",
+  "contract_sha256": "ae07be7c577ffbb259594750aaaefade50c70d219cd1594555bcbbe37f4470ce",
+  "build": {
+    "sha256": "7a5f347c3f029319ad40a94dd2fec1a2bfb800ececbad6227313e163ea91bada"
+  },
+  "witness": {
+    "kind": "aleph",
+    "version": "1.0.0+aleph.cd41f5081d0c"
+  },
+  "verdict": "observed",
+  "reasons": [],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 0.003254,
+      "interp_time_s": 0.006708,
+      "oracles": [
+        {
+          "oracle": "interp: file \"out/up.txt\" == \"THE QUICK BROWN\\nFOX JUMPS\\n\"",
+          "ok": true,
+          "found": "THE QUICK BROWN\nFOX JUMPS\n"
+        },
+        {
+          "oracle": "interp: stdout == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "interp: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "interp: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "native: file \"out/up.txt\" == \"THE QUICK BROWN\\nFOX JUMPS\\n\"",
+          "ok": true,
+          "found": "THE QUICK BROWN\nFOX JUMPS\n"
+        },
+        {
+          "oracle": "native: stdout == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "native: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "native: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "status": "success",
+      "time_to_result_s": 0.004456,
+      "interp_time_s": 0.007972,
+      "oracles": [
+        {
+          "oracle": "interp: file \"out/up.txt\" == \"THE QUICK BROWN\\nFOX JUMPS\\n\"",
+          "ok": true,
+          "found": "THE QUICK BROWN\nFOX JUMPS\n"
+        },
+        {
+          "oracle": "interp: stdout == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "interp: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "interp: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "native: file \"out/up.txt\" == \"THE QUICK BROWN\\nFOX JUMPS\\n\"",
+          "ok": true,
+          "found": "THE QUICK BROWN\nFOX JUMPS\n"
+        },
+        {
+          "oracle": "native: stdout == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "native: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "native: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "status": "success",
+      "time_to_result_s": 0.00221,
+      "interp_time_s": 0.003368,
+      "oracles": [
+        {
+          "oracle": "interp: file \"out/up.txt\" == \"THE QUICK BROWN\\nFOX JUMPS\\n\"",
+          "ok": true,
+          "found": "THE QUICK BROWN\nFOX JUMPS\n"
+        },
+        {
+          "oracle": "interp: stdout == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "interp: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "interp: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "native: file \"out/up.txt\" == \"THE QUICK BROWN\\nFOX JUMPS\\n\"",
+          "ok": true,
+          "found": "THE QUICK BROWN\nFOX JUMPS\n"
+        },
+        {
+          "oracle": "native: stdout == \"\"",
+          "ok": true,
+          "found": ""
+        },
+        {
+          "oracle": "native: exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "native: stderr == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 1,
+    "p50_time_to_result_s": 0.003254,
+    "p95_time_to_result_s": 0.004456,
+    "inconclusive_rate": 0
+  },
+  "capabilities_used": {
+    "fs.write": [
+      "out/up.txt"
+    ]
+  },
+  "at": "2026-11-20T20:46:21.794Z"
+}
