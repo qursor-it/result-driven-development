@@ -1,0 +1,88 @@
+{
+  "result": "R-008",
+  "contract_sha256": "9f7fd78aaf964b454b358bbdeb4d34d762093d20860ab7d9b921fdaec6300c71",
+  "build": {
+    "sha256": "f063ad440b9c406df021d56888511e1315a5f90280896e38e97d0529bf2b3665"
+  },
+  "witness": {
+    "kind": "cli",
+    "version": "1.0.0"
+  },
+  "verdict": "observed",
+  "reasons": [],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 0.789511,
+      "oracles": [
+        {
+          "oracle": "stdout contains \"\\\"verdict\\\":\\\"observed\\\"\"",
+          "ok": true,
+          "found": "{\"result\":\"R-001\",\"verdict\":\"observed\",\"at\":\"2026-11-20T20:23:07.020Z\",\"bundle_sha256\":\"de4293793baf8ce865215edadb0df7922833fa9d4fb61dc6ff26824bae559540\",\"contract_sha256\":\"00818ffd9c578cbf68dbd7a18b0"
+        },
+        {
+          "oracle": "stdout contains \"de4293793baf8ce865215edadb0df7922833fa9d4fb61dc6ff26824bae559540\"",
+          "ok": true,
+          "found": "{\"result\":\"R-001\",\"verdict\":\"observed\",\"at\":\"2026-11-20T20:23:07.020Z\",\"bundle_sha256\":\"de4293793baf8ce865215edadb0df7922833fa9d4fb61dc6ff26824bae559540\",\"contract_sha256\":\"00818ffd9c578cbf68dbd7a18b0"
+        },
+        {
+          "oracle": "exit_code == 0",
+          "ok": true,
+          "found": 0
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "status": "success",
+      "time_to_result_s": 0.775731,
+      "oracles": [
+        {
+          "oracle": "stdout contains \"\\\"verdict\\\":\\\"observed\\\"\"",
+          "ok": true,
+          "found": "{\"result\":\"R-001\",\"verdict\":\"observed\",\"at\":\"2026-11-20T20:23:07.020Z\",\"bundle_sha256\":\"de4293793baf8ce865215edadb0df7922833fa9d4fb61dc6ff26824bae559540\",\"contract_sha256\":\"00818ffd9c578cbf68dbd7a18b0"
+        },
+        {
+          "oracle": "stdout contains \"de4293793baf8ce865215edadb0df7922833fa9d4fb61dc6ff26824bae559540\"",
+          "ok": true,
+          "found": "{\"result\":\"R-001\",\"verdict\":\"observed\",\"at\":\"2026-11-20T20:23:07.020Z\",\"bundle_sha256\":\"de4293793baf8ce865215edadb0df7922833fa9d4fb61dc6ff26824bae559540\",\"contract_sha256\":\"00818ffd9c578cbf68dbd7a18b0"
+        },
+        {
+          "oracle": "exit_code == 0",
+          "ok": true,
+          "found": 0
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "status": "success",
+      "time_to_result_s": 0.634345,
+      "oracles": [
+        {
+          "oracle": "stdout contains \"\\\"verdict\\\":\\\"observed\\\"\"",
+          "ok": true,
+          "found": "{\"result\":\"R-001\",\"verdict\":\"observed\",\"at\":\"2026-11-20T20:23:07.020Z\",\"bundle_sha256\":\"de4293793baf8ce865215edadb0df7922833fa9d4fb61dc6ff26824bae559540\",\"contract_sha256\":\"00818ffd9c578cbf68dbd7a18b0"
+        },
+        {
+          "oracle": "stdout contains \"de4293793baf8ce865215edadb0df7922833fa9d4fb61dc6ff26824bae559540\"",
+          "ok": true,
+          "found": "{\"result\":\"R-001\",\"verdict\":\"observed\",\"at\":\"2026-11-20T20:23:07.020Z\",\"bundle_sha256\":\"de4293793baf8ce865215edadb0df7922833fa9d4fb61dc6ff26824bae559540\",\"contract_sha256\":\"00818ffd9c578cbf68dbd7a18b0"
+        },
+        {
+          "oracle": "exit_code == 0",
+          "ok": true,
+          "found": 0
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 1,
+    "p50_time_to_result_s": 0.775731,
+    "p95_time_to_result_s": 0.789511,
+    "inconclusive_rate": 0
+  },
+  "at": "2026-11-20T21:01:56.124Z"
+}

@@ -3,9 +3,12 @@ import { readFileSync } from "node:fs";
 import { parseArgs } from "node:util";
 import { parse } from "yaml";
 import { validateContractFile } from "../src/validate.js";
+import { appendBundles, history, readLedger } from "../src/ledger.js";
+import { renderLedger } from "../src/render-ledger.js";
 
 const USAGE =
-  "usage: rdd validate <file>... | rdd witness <contract.yaml> [--target <target>] --out <dir>";
+  "usage: rdd validate <file>... | rdd witness <contract.yaml> [--target <target>] --out <dir> | " +
+  "rdd ledger append <bundle.json>... [--ledger <path>] | rdd ledger <R-NNN> [--ledger <path>] [--text]";
 
 function write(fields) {
   process.stderr.write(`${JSON.stringify(fields)}\n`);
@@ -100,9 +103,68 @@ async function witnessCommand(args) {
   }
 }
 
+function ledgerCommand(args) {
+  let parsed;
+  try {
+    parsed = parseArgs({
+      args,
+      allowPositionals: true,
+      options: {
+        ledger: { type: "string" },
+        text: { type: "boolean" },
+      },
+    });
+  } catch (error) {
+    return usage(error.message);
+  }
+
+  const [subcommand, ...rest] = parsed.positionals;
+  if (!subcommand) return usage("ledger requires append or a result id");
+
+  const ledgerPath = parsed.values.ledger;
+  const ledgerOptions = ledgerPath === undefined ? {} : { ledgerPath };
+
+  if (subcommand === "append") {
+    if (rest.length === 0) return usage("ledger append requires at least one bundle");
+    try {
+      const { appended, skipped } = appendBundles(rest, ledgerOptions);
+      write({ level: "info", code: "ledger", appended, skipped });
+      return 0;
+    } catch (error) {
+      write({ level: "error", code: "ledger", message: error.message });
+      return 1;
+    }
+  }
+
+  if (!/^R-[0-9]{3,}$/.test(subcommand)) {
+    return usage(`invalid result id: ${subcommand}`);
+  }
+
+  let entries;
+  try {
+    entries = readLedger(ledgerPath);
+  } catch (error) {
+    write({ level: "error", code: "ledger", message: error.message });
+    return 1;
+  }
+
+  const selected = history(entries, subcommand);
+  if (selected.length === 0) return 0;
+
+  if (parsed.values.text) {
+    process.stdout.write(renderLedger(selected));
+  } else {
+    for (const entry of selected) {
+      process.stdout.write(`${JSON.stringify(entry)}\n`);
+    }
+  }
+  return 0;
+}
+
 const COMMANDS = new Map([
   ["validate", validateCommand],
   ["witness", witnessCommand],
+  ["ledger", ledgerCommand],
 ]);
 
 const [name, ...args] = process.argv.slice(2);

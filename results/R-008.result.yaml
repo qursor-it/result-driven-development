@@ -1,0 +1,26 @@
+id: R-008
+version: 1
+owner: Gianmarco Ferruzzi
+intent: An Owner sees since when a result is true with one command
+actor: Result Owner at the terminal
+given: ledger/results.jsonl holds the verdicts of the committed Evidence Bundles, including R-001
+outcome:
+  - text: the history of R-001 lists an observed verdict
+    oracle: 'stdout contains "\"verdict\":\"observed\""'
+  - text: the history names the Evidence Bundle of R-001 by its sha256
+    oracle: 'stdout contains "de4293793baf8ce865215edadb0df7922833fa9d4fb61dc6ff26824bae559540"'
+  - text: the command exits normally
+    oracle: "exit_code == 0"
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 2
+anti_results:
+  - writes any file
+capabilities:
+  fs.read: ["ledger"]
+witness:
+  kind: cli
+  target: bin/rdd.js
+  args: ["ledger", "R-001"]
+  timeout_s: 10

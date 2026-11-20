@@ -84,3 +84,10 @@ Append-only log written by agents. Newest entries at the bottom.
   - R-114 128515c29f5fc5e518fd0ed5a3e77dd75ffc41c115254e0a5ccd14d5143cb23f
   - R-115 52a0ce5e87de74d72d5960e571b8e6a56857f893ce6e628317fccffd3128069d
 - next: T-008
+
+## 2026-11-21T00:10 T-008 done
+- src/ledger.js: append-only ledger entries {result, verdict, at, bundle_sha256, contract_sha256, build_sha256, witness, reasons?}, idempotent by bundle sha256, schema-validated, never rewrites lines; src/render-ledger.js: human table + "since <at>" / "not observed"
+- `rdd ledger append <bundle>...` and `rdd ledger R-NNN [--text]` (JSON lines on stdout as stored)
+- contract results/R-008.result.yaml; ledger/results.jsonl backfilled by the lead (Gatekeeper role) with the 18 committed bundles, then R-008's own bundle (19 lines)
+- witness (lead): npm run ci exit 0, 143/143; R-008 observed 3/3 (bundle dd8e21c6…); re-append → 0 appended 18 skipped; unknown id → empty, exit 0; bad id → exit 2
+- M1 complete. Lead stops here: M2 (T-009+) needs P2 (browser Witness)
