@@ -1,0 +1,26 @@
+id: R-014
+version: 1
+owner: Bernardo Manfriani
+intent: A new user creates their first project without help
+actor: anonymous visitor, desktop and mobile
+given: page /signup, no existing account
+outcome:
+  - text: a project owned by the user exists
+    oracle: "GET /api/projects returns 1 item owned by the new user"
+  - text: the user sees that project's dashboard
+thresholds:
+  runs: 20
+  success_rate: 0.95
+  p50_time_to_result_s: 60
+  max_steps: 8
+  serious_a11y_violations: 0
+anti_results:
+  - an email is sent to an address other than the one entered
+capabilities:
+  net.host: ["api.example.com"]
+witness:
+  kind: browser
+  target: http://127.0.0.1:4318/signup
+  timeout_s: 900
+watch:
+  interval: 24h

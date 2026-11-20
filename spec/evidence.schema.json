@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/qursor-it/result-driven-development/spec/evidence.schema.json",
+  "title": "RDD Evidence Bundle",
+  "type": "object",
+  "required": ["result", "contract_sha256", "build", "witness", "verdict", "runs", "summary", "at"],
+  "properties": {
+    "result": { "type": "string", "pattern": "^R-[0-9]{3,}$" },
+    "contract_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "build": {
+      "type": "object",
+      "required": ["sha256"],
+      "properties": {
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "commit": { "type": "string" }
+      }
+    },
+    "witness": {
+      "type": "object",
+      "required": ["kind", "version"],
+      "properties": { "kind": { "type": "string" }, "version": { "type": "string" } }
+    },
+    "verdict": { "enum": ["observed", "refuted", "inconclusive"] },
+    "reasons": { "type": "array", "items": { "type": "string" } },
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["n", "status"],
+        "properties": {
+          "n": { "type": "integer" },
+          "status": { "enum": ["success", "failure", "inconclusive"] },
+          "time_to_result_s": { "type": "number" },
+          "steps": { "type": "integer" },
+          "oracles": { "type": "array", "items": { "type": "object", "properties": { "oracle": { "type": "string" }, "ok": { "type": "boolean" }, "found": {} } } },
+          "artifacts": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "success_rate": { "type": "number" },
+        "p50_time_to_result_s": { "type": "number" },
+        "p95_time_to_result_s": { "type": "number" },
+        "inconclusive_rate": { "type": "number" }
+      }
+    },
+    "capabilities_used": { "type": "object" },
+    "at": { "type": "string", "format": "date-time" }
+  }
+}

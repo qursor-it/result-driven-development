@@ -1,0 +1,23 @@
+id: R-001
+version: 1
+owner: Gianmarco Ferruzzi
+intent: Counting the words of a text file prints the correct number
+actor: CLI user
+given: data/in.txt contains "uno due tre"
+outcome:
+  - text: the program prints the word count
+    oracle: 'stdout == "3\n"'
+  - text: the program exits normally
+    oracle: "exit_code == 0"
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 1
+anti_results:
+  - writes any file
+capabilities:
+  fs.read: ["data"]
+witness:
+  kind: aleph
+  target: wordcount.aph
+  timeout_s: 10
