@@ -1,0 +1,17 @@
+id: R-902
+version: 1
+owner: Test
+intent: A missing target is inconclusive
+actor: tester
+given: no such command
+outcome:
+  - text: exits cleanly
+    oracle: "exit_code == 0"
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities: {}
+witness:
+  kind: cli
+  target: test/fixtures/no-such-binary
+  timeout_s: 10

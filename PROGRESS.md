@@ -35,3 +35,14 @@ Append-only log written by agents. Newest entries at the bottom.
 - witness (lead): npm run ci exit 0, 56/56 tests; 6 independent cases (R-001/R-014 shapes, anti-result, unmeasured a11y) gave the expected verdicts
 - M0 complete: P2 (browser Witness) can start
 - next: T-005
+
+## 2026-11-20T22:30 T-005 done
+- Witness `cli`: witnesses/cli/{witness.js,index.js,oracle.js}; `rdd witness <contract> [--target] --out` dispatches by kind (cli only for now; others exit 2)
+- oracles: stdout/stderr `==`/`contains` <JSON string>, exit_code `==`/`!=` <int>; spawn error or missing/unsupported oracle → inconclusive run; timeout → failure; exit 0/1/3/2 per spec §8
+- npm test now globs test/**/*.test.js (fixture helper scripts are not tests)
+- contract results/R-005.result.yaml (cli Witness observes R-002 through itself)
+- witness (lead, fresh): npm run ci exit 0, 86/86; R-002 observed (p95 0.68s), R-005 observed (p95 3.56s); wrong --target → refuted exit 1
+- evidence committed: evidence/R-002/<build>/bundle.json (sha256 f8e6809f…), evidence/R-005/<build>/bundle.json (sha256 dee3f7b0…)
+- known limits (shortcut comments): no anti-result/capability detection; build sha256 of a .js target hashes the entry file only, not its imports
+- risk: R-002/R-005 time thresholds include Node startup; on a saturated VPS (load > 4) they can be exceeded
+- next: T-006

@@ -1,0 +1,17 @@
+id: R-903
+version: 1
+owner: Test
+intent: An outcome without an oracle is inconclusive
+actor: tester
+given: the echo fixture
+outcome:
+  - text: prints something
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities: {}
+witness:
+  kind: cli
+  target: test/fixtures/echo.js
+  args: ["hello"]
+  timeout_s: 10

@@ -8,7 +8,7 @@
     "rdd": "bin/rdd.js"
   },
   "scripts": {
-    "test": "node --test",
+    "test": "node --test 'test/**/*.test.js'",
     "ci": "node scripts/ci.js"
   },
   "repository": {

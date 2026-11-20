@@ -1,0 +1,25 @@
+id: R-005
+version: 1
+owner: Gianmarco Ferruzzi
+intent: An Owner gets a verdict and an Evidence Bundle for a CLI result with one command
+actor: Result Owner at the terminal
+given: the repository checkout with results/R-002.result.yaml (rdd validate on a valid contract)
+outcome:
+  - text: the cli Witness observes R-002 and exits with the observed code
+    oracle: "exit_code == 0"
+  - text: the Witness prints nothing on stdout; diagnostics go to stderr
+    oracle: 'stdout == ""'
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 10
+anti_results:
+  - writes outside the --out directory
+capabilities:
+  fs.read: ["results", "spec", "bin", "src"]
+  fs.write: ["/tmp/rdd-r005"]
+witness:
+  kind: cli
+  target: witnesses/cli/witness.js
+  args: ["results/R-002.result.yaml", "--out", "/tmp/rdd-r005"]
+  timeout_s: 30

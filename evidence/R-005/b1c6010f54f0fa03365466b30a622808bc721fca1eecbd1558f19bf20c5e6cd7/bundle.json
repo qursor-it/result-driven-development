@@ -1,0 +1,73 @@
+{
+  "result": "R-005",
+  "contract_sha256": "c820ecc2d7961f79a0e87047907870d1ff2de23bdd6fcc43ce551bad7e425f39",
+  "build": {
+    "sha256": "b1c6010f54f0fa03365466b30a622808bc721fca1eecbd1558f19bf20c5e6cd7"
+  },
+  "witness": {
+    "kind": "cli",
+    "version": "1.0.0"
+  },
+  "verdict": "observed",
+  "reasons": [],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 3.56447,
+      "oracles": [
+        {
+          "oracle": "exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "status": "success",
+      "time_to_result_s": 3.153511,
+      "oracles": [
+        {
+          "oracle": "exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "status": "success",
+      "time_to_result_s": 3.162599,
+      "oracles": [
+        {
+          "oracle": "exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 1,
+    "p50_time_to_result_s": 3.162599,
+    "p95_time_to_result_s": 3.56447,
+    "inconclusive_rate": 0
+  },
+  "at": "2026-11-20T19:59:30.095Z"
+}

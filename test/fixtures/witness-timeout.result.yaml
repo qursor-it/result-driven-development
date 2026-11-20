@@ -1,0 +1,17 @@
+id: R-904
+version: 1
+owner: Test
+intent: A run that exceeds its timeout is a failure
+actor: tester
+given: a script that sleeps for three seconds
+outcome:
+  - text: exits before the timeout
+    oracle: "exit_code == 0"
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities: {}
+witness:
+  kind: cli
+  target: test/fixtures/sleep.js
+  timeout_s: 1

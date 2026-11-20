@@ -33,7 +33,7 @@ function checkSchemas() {
 }
 
 function runTests() {
-  const result = spawnSync(process.execPath, ["--test"], { stdio: "inherit" });
+  const result = spawnSync(process.execPath, ["--test", "test/**/*.test.js"], { stdio: "inherit" });
   const ok = result.status === 0;
   log(ok ? "info" : "error", { check: "tests", ok });
   return ok;
