@@ -2,7 +2,7 @@
 import { readFileSync } from "node:fs";
 import { parseArgs } from "node:util";
 import { parse } from "yaml";
-import { validateContractFile } from "../src/validate.js";
+import { validateContractFile, validateSidecarFile } from "../src/validate.js";
 import { appendBundles, history, readLedger } from "../src/ledger.js";
 import { renderLedger } from "../src/render-ledger.js";
 
@@ -24,7 +24,9 @@ function validateCommand(files) {
 
   let ok = true;
   for (const file of files) {
-    const result = validateContractFile(file);
+    const result = file.endsWith(".oracles.yaml")
+      ? validateSidecarFile(file)
+      : validateContractFile(file);
     if (result.ok) {
       write({ level: "info", code: "valid", file });
       continue;
@@ -32,7 +34,9 @@ function validateCommand(files) {
 
     ok = false;
     for (const error of result.errors) {
-      write({ level: "error", code: error.code, file, path: error.path, message: error.message });
+      const fields = { level: "error", code: error.code, file, path: error.path, message: error.message };
+      if (error.sidecar !== undefined) fields.sidecar = error.sidecar;
+      write(fields);
     }
   }
   return ok ? 0 : 1;
@@ -67,7 +71,15 @@ async function witnessCommand(args) {
   const validation = validateContractFile(contractPath);
   if (!validation.ok) {
     for (const error of validation.errors) {
-      write({ level: "error", code: error.code, file: contractPath, path: error.path, message: error.message });
+      const fields = {
+        level: "error",
+        code: error.code,
+        file: contractPath,
+        path: error.path,
+        message: error.message,
+      };
+      if (error.sidecar !== undefined) fields.sidecar = error.sidecar;
+      write(fields);
     }
     return 2;
   }

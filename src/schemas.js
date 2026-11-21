@@ -39,6 +39,7 @@ export function compileSchema(name) {
 export function compileSchemas() {
   return {
     contract: compileSchema("result-contract"),
+    sidecar: compileSchema("oracle-sidecar"),
     evidence: compileSchema("evidence"),
   };
 }

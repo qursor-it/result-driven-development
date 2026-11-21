@@ -1,0 +1,24 @@
+id: R-010
+version: 1
+owner: Gianmarco Ferruzzi
+intent: An Owner learns before any browser run that an HTTP oracle would leave the target origin
+actor: Result Owner at the terminal
+given: the checkout with results/examples/fixtures/R-010/off-origin.oracles.yaml, a sidecar whose first outcome GETs //evil.example/api
+outcome:
+  - text: rdd validate rejects the sidecar
+    oracle: "exit_code == 1"
+  - text: the error points at the offending get
+    oracle: 'stderr contains "/outcomes/0/get"'
+  - text: nothing on stdout
+    oracle: 'stdout == ""'
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 10
+capabilities:
+  fs.read: ["results", "spec", "bin", "src"]
+witness:
+  kind: cli
+  target: bin/rdd.js
+  args: ["validate", "results/examples/fixtures/R-010/off-origin.oracles.yaml"]
+  timeout_s: 30

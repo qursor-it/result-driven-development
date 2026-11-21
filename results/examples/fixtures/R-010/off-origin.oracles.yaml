@@ -1,0 +1,6 @@
+result: R-010
+outcomes:
+  - outcome: 0
+    get: //evil.example/api/projects
+    expect:
+      status: 200

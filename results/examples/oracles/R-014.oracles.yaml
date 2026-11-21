@@ -1,0 +1,16 @@
+result: R-014
+before_each:
+  post: /api/reset
+outcomes:
+  - outcome: 0
+    get: /api/projects?owner={email}
+    expect:
+      status: 200
+      length: 1
+      every: { owner: "{email}" }
+anti_results:
+  - anti_result: 0
+    get: /api/outbox
+    expect:
+      status: 200
+      none: { to: { not: "{email}" } }

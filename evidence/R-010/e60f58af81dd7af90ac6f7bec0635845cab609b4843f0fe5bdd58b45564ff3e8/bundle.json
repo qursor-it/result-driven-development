@@ -1,0 +1,88 @@
+{
+  "result": "R-010",
+  "contract_sha256": "79c1a11abf9be23520f24f018e56b95ab19527ad4efb8fabb32e9ea79033fbd7",
+  "build": {
+    "sha256": "e60f58af81dd7af90ac6f7bec0635845cab609b4843f0fe5bdd58b45564ff3e8"
+  },
+  "witness": {
+    "kind": "cli",
+    "version": "1.0.0"
+  },
+  "verdict": "observed",
+  "reasons": [],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 0.42182,
+      "oracles": [
+        {
+          "oracle": "exit_code == 1",
+          "ok": true,
+          "found": 1
+        },
+        {
+          "oracle": "stderr contains \"/outcomes/0/get\"",
+          "ok": true,
+          "found": "{\"level\":\"error\",\"code\":\"schema\",\"file\":\"results/examples/fixtures/R-010/off-origin.oracles.yaml\",\"path\":\"/outcomes/0/get\",\"message\":\"must match pattern \\\"^/(?![/\\\\\\\\])\\\"\"}\n"
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "status": "success",
+      "time_to_result_s": 0.51869,
+      "oracles": [
+        {
+          "oracle": "exit_code == 1",
+          "ok": true,
+          "found": 1
+        },
+        {
+          "oracle": "stderr contains \"/outcomes/0/get\"",
+          "ok": true,
+          "found": "{\"level\":\"error\",\"code\":\"schema\",\"file\":\"results/examples/fixtures/R-010/off-origin.oracles.yaml\",\"path\":\"/outcomes/0/get\",\"message\":\"must match pattern \\\"^/(?![/\\\\\\\\])\\\"\"}\n"
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "status": "success",
+      "time_to_result_s": 0.461662,
+      "oracles": [
+        {
+          "oracle": "exit_code == 1",
+          "ok": true,
+          "found": 1
+        },
+        {
+          "oracle": "stderr contains \"/outcomes/0/get\"",
+          "ok": true,
+          "found": "{\"level\":\"error\",\"code\":\"schema\",\"file\":\"results/examples/fixtures/R-010/off-origin.oracles.yaml\",\"path\":\"/outcomes/0/get\",\"message\":\"must match pattern \\\"^/(?![/\\\\\\\\])\\\"\"}\n"
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 1,
+    "p50_time_to_result_s": 0.461662,
+    "p95_time_to_result_s": 0.51869,
+    "inconclusive_rate": 0
+  },
+  "at": "2026-11-21T05:55:14.682Z"
+}

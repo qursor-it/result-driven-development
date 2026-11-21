@@ -103,3 +103,12 @@ Append-only log written by agents. Newest entries at the bottom.
 - tests: test/witness-browser.test.js offline with fake pinned checkouts; the old "browser kind unimplemented" test now asserts exit 2 code `pin` for a missing checkout
 - verified: npm run ci exit 0, 154/154
 - environment note: Chromium on this VPS needs `LD_LIBRARY_PATH=~/.local/pw-libs/root/usr/lib/aarch64-linux-gnu`; one Chromium at a time, load < 3 (operator's job, ADR-0017)
+
+## 2026-11-21T07:10 T-010 done
+- ADR-0018 Proposed: HTTP oracle sidecars (`<contract dir>/oracles/<id>.oracles.yaml`, format of P2 docs/witness.md §5) get a schema in the spec: `spec/oracle-sidecar.schema.json`; every path starts with a single `/` (same origin). Scores: (a) schema + rdd validate 9, (b) leave it to P2 at witness time 4, (c) inline structured oracles 3
+- src/validate.js: `validateSidecar`/`validateSidecarFile` (schema, placeholders only {email} {run} {project}, result id); `rdd validate x.oracles.yaml`; a non-hidden browser contract with oracles needs a valid sidecar covering every oracle outcome with in-range indices (code `sidecar`)
+- results: R-010 (cli Witness on `rdd validate` of an off-origin sidecar), fixture results/examples/fixtures/R-010/off-origin.oracles.yaml; results/examples/oracles/R-014.oracles.yaml copied byte for byte from P2 (needed by R-014 and T-012)
+- the final state via API is checked by P2's Witness (T-009): R-009 attempt 1 was refuted by that oracle (0 projects for the user), attempt 2 observed it (1 project)
+- witness (lead): R-010 observed 3/3 (bundle febb59f6…); with the fixture made valid → refuted; R-014 example without its sidecar → validate exit 1 code sidecar
+- verified: npm run ci exit 0, 168/168, oracle-sidecar schema check ok
+- P2 note: P1 src/validate.js and spec/ changed; P2's vendored snapshot (47f27db) stays valid until it re-vendors

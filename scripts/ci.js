@@ -1,7 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { compileSchema } from "../src/schemas.js";
 
-const SCHEMAS = ["result-contract", "evidence"];
+const SCHEMAS = ["result-contract", "oracle-sidecar", "evidence"];
 
 function log(level, fields) {
   process.stderr.write(`${JSON.stringify({ level, ...fields })}\n`);

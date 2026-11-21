@@ -1,0 +1,8 @@
+result: R-940
+outcomes:
+  - outcome: 0
+    get: /api/projects?owner={email}
+    expect:
+      status: 200
+      length: 1
+      every: { owner: "{email}" }

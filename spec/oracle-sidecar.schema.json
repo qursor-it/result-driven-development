@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdd.dev/spec/oracle-sidecar.schema.json",
+  "title": "HTTP oracle sidecar for a browser Result Contract",
+  "type": "object",
+  "required": ["result"],
+  "additionalProperties": false,
+  "properties": {
+    "result": { "type": "string", "pattern": "^R-[0-9]{3,}$" },
+    "before_each": {
+      "type": "object",
+      "required": ["post"],
+      "additionalProperties": false,
+      "properties": { "post": { "$ref": "#/$defs/path" } }
+    },
+    "outcomes": {
+      "type": "array",
+      "items": { "type": "object", "$ref": "#/$defs/check", "required": ["outcome", "get"] }
+    },
+    "anti_results": {
+      "type": "array",
+      "items": { "type": "object", "$ref": "#/$defs/check", "required": ["anti_result", "get"] }
+    }
+  },
+  "$defs": {
+    "path": { "type": "string", "pattern": "^/(?![/\\\\])" },
+    "scalar": { "type": ["string", "number", "boolean", "null"] },
+    "matcher": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/scalar" }
+    },
+    "noneMatcher": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "anyOf": [
+          { "$ref": "#/$defs/scalar" },
+          {
+            "type": "object",
+            "required": ["not"],
+            "additionalProperties": false,
+            "properties": { "not": { "$ref": "#/$defs/scalar" } }
+          }
+        ]
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "outcome": { "type": "integer", "minimum": 0 },
+        "anti_result": { "type": "integer", "minimum": 0 },
+        "get": { "$ref": "#/$defs/path" },
+        "expect": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": { "type": "integer", "minimum": 100, "maximum": 599 },
+            "length": { "type": "integer", "minimum": 0 },
+            "every": { "$ref": "#/$defs/matcher" },
+            "some": { "$ref": "#/$defs/matcher" },
+            "none": { "$ref": "#/$defs/noneMatcher" }
+          }
+        }
+      }
+    }
+  }
+}
