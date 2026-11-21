@@ -145,3 +145,15 @@ Append-only log written by agents. Newest entries at the bottom.
 - witness (lead): R-015 observed 3/3 (bundle 81b137cb…); fixture without source watch → R-015 refuted
 - real report for 2026-11 on this repo: 24 results accepted, 0 regressions found by Watch, time to acceptance p50 0 h — contracts here were committed with the code after the witness, so the metric is 0 by construction; it becomes meaningful when the Owner commits the contract (gate 1) before the Builder starts
 - verified: npm run ci exit 0, 235/235
+
+## 2026-11-21T07:06 T-012 BLOCKED (human gate), verdict refuted
+- run: `rdd witness results/examples/R-014.result.yaml` through the browser Witness (ADR-0017, P2 ee4284c), P2 demo on 127.0.0.1:4318 with `/api/reset` before each run, 20 runs, one Chromium, nice 15, nohup + log; 06:08Z → 07:05Z; R-014 thresholds unchanged
+- verdict refuted (bundle 833ee7e446e27e425486de1c9b1f20ea97237419960900d3dbd409a845cd0194), reasons:
+  - success_rate 0.7 < 0.95 (14/20): runs 2, 6, 8, 11 failed in 0.004–0.05 s with 2 steps — Explorbot's research phase submitted the empty signup form and the test started on the 400 page; runs 3 and 4 finished their scenario but typed the email with the agent's session name appended (`rdd+R-014-3.PetiteGladFuchsia810@example.test`), so the owner oracle found no project for the planned email
+  - p50_time_to_result_s 125.464 > 60 (p95 169.7 s)
+  - max_steps: every successful run has 12–20 steps > 8
+  - anti-result observed (mail to another address): the bundle does not say which run; most likely runs 3/4, where the demo mailed the suffixed address the agent typed — an artifact of the agent, not of the app
+  - serious_a11y_violations 0 in all runs; inconclusive_rate 0
+- consistent with P2 R-910 (3 runs): the human-calibrated thresholds do not fit an LLM agent; changing them is the Owner's call (human gate). Not changed
+- findings for P2: the session-name suffix still happens despite the exact-values focus; the empty-form research click; the bundle should name the run that observed an anti-result
+- evidence committed: bundle, artifacts manifest, per-run a11y.json, run.json, tests.md (logs and HTML reports stay out); ledger appended

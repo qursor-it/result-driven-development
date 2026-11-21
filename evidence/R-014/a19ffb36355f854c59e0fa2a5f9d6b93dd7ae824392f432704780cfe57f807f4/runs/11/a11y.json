@@ -1,0 +1,13 @@
+{
+  "serious": 0,
+  "pages": [
+    {
+      "page": "signup_h1_create_your_account",
+      "violations": []
+    },
+    {
+      "page": "signup_title_sign_up_qa_notebook",
+      "violations": []
+    }
+  ]
+}

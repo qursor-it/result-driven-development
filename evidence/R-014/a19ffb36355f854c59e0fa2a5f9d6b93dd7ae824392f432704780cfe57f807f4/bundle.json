@@ -1,0 +1,527 @@
+{
+  "result": "R-014",
+  "contract_sha256": "46d2adaef1654b9963816f6271040bc77b945d7947659b60a0760dce481b8ff6",
+  "build": {
+    "sha256": "a19ffb36355f854c59e0fa2a5f9d6b93dd7ae824392f432704780cfe57f807f4"
+  },
+  "witness": {
+    "kind": "browser",
+    "version": "0.1.0"
+  },
+  "verdict": "refuted",
+  "reasons": [
+    "anti-result observed: an email is sent to an address other than the one entered",
+    "success_rate 0.7 < 0.95",
+    "p50_time_to_result_s 125.464 > 60",
+    "max_steps: run 1 has 13 > 8",
+    "max_steps: run 3 has 16 > 8",
+    "max_steps: run 4 has 14 > 8",
+    "max_steps: run 5 has 14 > 8",
+    "max_steps: run 7 has 15 > 8",
+    "max_steps: run 9 has 12 > 8",
+    "max_steps: run 10 has 14 > 8",
+    "max_steps: run 12 has 18 > 8",
+    "max_steps: run 13 has 16 > 8",
+    "max_steps: run 14 has 15 > 8",
+    "max_steps: run 15 has 14 > 8",
+    "max_steps: run 16 has 16 > 8",
+    "max_steps: run 17 has 14 > 8",
+    "max_steps: run 18 has 13 > 8",
+    "max_steps: run 19 has 20 > 8",
+    "max_steps: run 20 has 13 > 8"
+  ],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 125.464,
+      "steps": 13,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/01/a11y.json",
+        "runs/01/explorbot.log",
+        "runs/01/report.html",
+        "runs/01/run.json",
+        "runs/01/tests.md"
+      ]
+    },
+    {
+      "n": 2,
+      "status": "failure",
+      "time_to_result_s": 0.015,
+      "steps": 2,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": false,
+          "found": {
+            "status": 200,
+            "length": 0
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/02/a11y.json",
+        "runs/02/explorbot.log",
+        "runs/02/report.html",
+        "runs/02/run.json",
+        "runs/02/tests.md"
+      ]
+    },
+    {
+      "n": 3,
+      "status": "failure",
+      "time_to_result_s": 156.969,
+      "steps": 16,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": false,
+          "found": {
+            "status": 200,
+            "length": 0
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/03/a11y.json",
+        "runs/03/explorbot.log",
+        "runs/03/report.html",
+        "runs/03/run.json",
+        "runs/03/tests.md"
+      ]
+    },
+    {
+      "n": 4,
+      "status": "failure",
+      "time_to_result_s": 124.524,
+      "steps": 14,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": false,
+          "found": {
+            "status": 200,
+            "length": 0
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/04/a11y.json",
+        "runs/04/explorbot.log",
+        "runs/04/report.html",
+        "runs/04/run.json",
+        "runs/04/tests.md"
+      ]
+    },
+    {
+      "n": 5,
+      "status": "success",
+      "time_to_result_s": 117.539,
+      "steps": 14,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/05/a11y.json",
+        "runs/05/explorbot.log",
+        "runs/05/report.html",
+        "runs/05/run.json",
+        "runs/05/tests.md"
+      ]
+    },
+    {
+      "n": 6,
+      "status": "failure",
+      "time_to_result_s": 0.005,
+      "steps": 2,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": false,
+          "found": {
+            "status": 200,
+            "length": 0
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/06/a11y.json",
+        "runs/06/explorbot.log",
+        "runs/06/report.html",
+        "runs/06/run.json",
+        "runs/06/tests.md"
+      ]
+    },
+    {
+      "n": 7,
+      "status": "success",
+      "time_to_result_s": 124.296,
+      "steps": 15,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/07/a11y.json",
+        "runs/07/explorbot.log",
+        "runs/07/report.html",
+        "runs/07/run.json",
+        "runs/07/tests.md"
+      ]
+    },
+    {
+      "n": 8,
+      "status": "failure",
+      "time_to_result_s": 0.051,
+      "steps": 2,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": false,
+          "found": {
+            "status": 200,
+            "length": 0
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/08/a11y.json",
+        "runs/08/explorbot.log",
+        "runs/08/report.html",
+        "runs/08/run.json",
+        "runs/08/tests.md"
+      ]
+    },
+    {
+      "n": 9,
+      "status": "success",
+      "time_to_result_s": 142.836,
+      "steps": 12,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/09/a11y.json",
+        "runs/09/explorbot.log",
+        "runs/09/report.html",
+        "runs/09/run.json",
+        "runs/09/tests.md"
+      ]
+    },
+    {
+      "n": 10,
+      "status": "success",
+      "time_to_result_s": 126.597,
+      "steps": 14,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/10/a11y.json",
+        "runs/10/explorbot.log",
+        "runs/10/report.html",
+        "runs/10/run.json",
+        "runs/10/tests.md"
+      ]
+    },
+    {
+      "n": 11,
+      "status": "failure",
+      "time_to_result_s": 0.004,
+      "steps": 2,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": false,
+          "found": {
+            "status": 200,
+            "length": 0
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/11/a11y.json",
+        "runs/11/explorbot.log",
+        "runs/11/report.html",
+        "runs/11/run.json",
+        "runs/11/tests.md"
+      ]
+    },
+    {
+      "n": 12,
+      "status": "success",
+      "time_to_result_s": 142.265,
+      "steps": 18,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/12/a11y.json",
+        "runs/12/explorbot.log",
+        "runs/12/report.html",
+        "runs/12/run.json",
+        "runs/12/tests.md"
+      ]
+    },
+    {
+      "n": 13,
+      "status": "success",
+      "time_to_result_s": 125.978,
+      "steps": 16,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/13/a11y.json",
+        "runs/13/explorbot.log",
+        "runs/13/report.html",
+        "runs/13/run.json",
+        "runs/13/tests.md"
+      ]
+    },
+    {
+      "n": 14,
+      "status": "success",
+      "time_to_result_s": 104.481,
+      "steps": 15,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/14/a11y.json",
+        "runs/14/explorbot.log",
+        "runs/14/report.html",
+        "runs/14/run.json",
+        "runs/14/tests.md"
+      ]
+    },
+    {
+      "n": 15,
+      "status": "success",
+      "time_to_result_s": 130.08,
+      "steps": 14,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/15/a11y.json",
+        "runs/15/explorbot.log",
+        "runs/15/report.html",
+        "runs/15/run.json",
+        "runs/15/tests.md"
+      ]
+    },
+    {
+      "n": 16,
+      "status": "success",
+      "time_to_result_s": 169.748,
+      "steps": 16,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/16/a11y.json",
+        "runs/16/explorbot.log",
+        "runs/16/report.html",
+        "runs/16/run.json",
+        "runs/16/tests.md"
+      ]
+    },
+    {
+      "n": 17,
+      "status": "success",
+      "time_to_result_s": 100.018,
+      "steps": 14,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/17/a11y.json",
+        "runs/17/explorbot.log",
+        "runs/17/report.html",
+        "runs/17/run.json",
+        "runs/17/tests.md"
+      ]
+    },
+    {
+      "n": 18,
+      "status": "success",
+      "time_to_result_s": 104.159,
+      "steps": 13,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/18/a11y.json",
+        "runs/18/explorbot.log",
+        "runs/18/report.html",
+        "runs/18/run.json",
+        "runs/18/tests.md"
+      ]
+    },
+    {
+      "n": 19,
+      "status": "success",
+      "time_to_result_s": 147.981,
+      "steps": 20,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/19/a11y.json",
+        "runs/19/explorbot.log",
+        "runs/19/report.html",
+        "runs/19/run.json",
+        "runs/19/tests.md"
+      ]
+    },
+    {
+      "n": 20,
+      "status": "success",
+      "time_to_result_s": 118.73,
+      "steps": 13,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/20/a11y.json",
+        "runs/20/explorbot.log",
+        "runs/20/report.html",
+        "runs/20/run.json",
+        "runs/20/tests.md"
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 0.7,
+    "p50_time_to_result_s": 125.464,
+    "p95_time_to_result_s": 169.748,
+    "inconclusive_rate": 0
+  },
+  "capabilities_used": {
+    "net.host": [
+      "127.0.0.1"
+    ]
+  },
+  "at": "2026-11-21T07:05:34.403Z"
+}

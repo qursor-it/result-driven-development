@@ -1,0 +1,12 @@
+{
+  "exitCode": 0,
+  "timedOut": false,
+  "wall_clock_s": 171.191584,
+  "tests": [
+    {
+      "title": "An anonymous visitor signs up with the given email and password, creates their first project named RDD project 20, and lands on that project's dashboard.",
+      "status": "passed",
+      "steps": 13
+    }
+  ]
+}

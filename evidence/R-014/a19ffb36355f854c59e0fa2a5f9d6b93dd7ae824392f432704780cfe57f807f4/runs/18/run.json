@@ -1,0 +1,12 @@
+{
+  "exitCode": 0,
+  "timedOut": false,
+  "wall_clock_s": 190.983365,
+  "tests": [
+    {
+      "title": "Create an account on the signup page and then create the first project named RDD project 18, verifying the project exists and its dashboard is shown.",
+      "status": "passed",
+      "steps": 13
+    }
+  ]
+}
