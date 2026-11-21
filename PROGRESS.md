@@ -91,3 +91,15 @@ Append-only log written by agents. Newest entries at the bottom.
 - contract results/R-008.result.yaml; ledger/results.jsonl backfilled by the lead (Gatekeeper role) with the 18 committed bundles, then R-008's own bundle (19 lines)
 - witness (lead): npm run ci exit 0, 143/143; R-008 observed 3/3 (bundle dd8e21c6…); re-append → 0 appended 18 skipped; unknown id → empty, exit 0; bad id → exit 2
 - M1 complete. Lead stops here: M2 (T-009+) needs P2 (browser Witness)
+
+## 2026-11-21T06:55 T-009 done
+- ADR-0017 Proposed: the browser Witness spawns P2's CLI (`autonomous-qa/witness/bin/rdd-witness-browser.mjs`) from a local checkout pinned in `witnesses/browser/PIN.json` (qursor-qa-tester ee4284c); scores (a) CLI at pinned commit 9, (b) import 5, (c) vendor 2, (d) npm git dep 2
+- witnesses/browser/: pin check (HEAD == pin, clean `autonomous-qa/witness` + `vendor`, CLI exists) → exit 2 code `pin`; P2 exit 2/signal/timeout → exit 2 code `witness`; bundle re-checked against P1 evidence schema, contract id, contract sha256, kind browser, exit code ↔ verdict → exit 2 code `bundle`; checkout path `RDD_BROWSER_WITNESS_DIR` (default ~/projects/qursor-witness); registered in `rdd witness`
+- contract results/R-009.result.yaml + sidecar results/oracles/R-009.oracles.yaml (demo signup → first project, 1 run)
+- witness (lead, P2 demo on 127.0.0.1:4318, `rdd witness results/R-009.result.yaml`):
+  - attempt 1 refuted (bundle a7faef1d…): Explorbot's research phase submitted the empty signup form, the test then started on the 400 validation page; agent flakiness, the adapter behaved correctly
+  - attempt 2 observed (bundle 82ccbc99…): oracle ok (1 project owned by the user), 16 steps, 139.2 s, a11y 0
+  - both verdicts appended to the ledger
+- tests: test/witness-browser.test.js offline with fake pinned checkouts; the old "browser kind unimplemented" test now asserts exit 2 code `pin` for a missing checkout
+- verified: npm run ci exit 0, 154/154
+- environment note: Chromium on this VPS needs `LD_LIBRARY_PATH=~/.local/pw-libs/root/usr/lib/aarch64-linux-gnu`; one Chromium at a time, load < 3 (operator's job, ADR-0017)

@@ -29,8 +29,12 @@ function runWitness(args, env = {}) {
   });
 }
 
-function runRdd(args) {
-  return spawnSync(process.execPath, [RDD, ...args], { cwd: ROOT, encoding: "utf8" });
+function runRdd(args, env = {}) {
+  return spawnSync(process.execPath, [RDD, ...args], {
+    cwd: ROOT,
+    encoding: "utf8",
+    env: { ...process.env, ...env },
+  });
 }
 
 function readBundle(dir) {
@@ -235,15 +239,16 @@ test("rdd witness dispatches the cli kind", (t) => {
   assert.equal(bundle.runs.length, 3);
 });
 
-test("rdd witness rejects an unimplemented kind with exit 2", (t) => {
+test("rdd witness rejects a browser contract with a missing pinned checkout", (t) => {
   const out = tempDir(t);
-  const result = runRdd(["witness", "results/examples/R-014.result.yaml", "--out", out]);
+  const result = runRdd(["witness", "results/examples/R-014.result.yaml", "--out", out], {
+    RDD_BROWSER_WITNESS_DIR: join(out, "missing-checkout"),
+  });
 
   assert.equal(result.status, 2);
   assert.equal(result.stdout, "");
   const line = diagnostics(result.stderr).find((entry) => entry.level === "error");
-  assert.equal(line.code, "usage");
-  assert.match(line.message, /browser/);
+  assert.equal(line.code, "pin");
 });
 
 test("a hidden cli contract loads its oracles from RDD_HIDDEN_DIR", (t) => {

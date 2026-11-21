@@ -41,6 +41,7 @@ function validateCommand(files) {
 const WITNESSES = new Map([
   ["cli", () => import("../witnesses/cli/index.js")],
   ["aleph", () => import("../witnesses/aleph/index.js")],
+  ["browser", () => import("../witnesses/browser/index.js")],
 ]);
 
 async function witnessCommand(args) {

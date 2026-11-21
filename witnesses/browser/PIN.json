@@ -1,0 +1,5 @@
+{
+  "repo": "qursor-it/qursor-qa-tester",
+  "commit": "ee4284ca9d8ede80a363ab3555afa5186c83df96",
+  "cli": "autonomous-qa/witness/bin/rdd-witness-browser.mjs"
+}

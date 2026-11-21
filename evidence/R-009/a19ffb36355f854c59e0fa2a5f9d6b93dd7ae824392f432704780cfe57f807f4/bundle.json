@@ -1,0 +1,51 @@
+{
+  "result": "R-009",
+  "contract_sha256": "254c552d5a46360ef2eff9a8444d647e9e1eed9bb6ae913d7179b942acdc14d7",
+  "build": {
+    "sha256": "a19ffb36355f854c59e0fa2a5f9d6b93dd7ae824392f432704780cfe57f807f4"
+  },
+  "witness": {
+    "kind": "browser",
+    "version": "0.1.0"
+  },
+  "verdict": "observed",
+  "reasons": [],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 139.165,
+      "steps": 16,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects?owner=<email> returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/01/a11y.json",
+        "runs/01/explorbot.log",
+        "runs/01/report.html",
+        "runs/01/run.json",
+        "runs/01/tests.md"
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 1,
+    "p50_time_to_result_s": 139.165,
+    "p95_time_to_result_s": 139.165,
+    "inconclusive_rate": 0
+  },
+  "capabilities_used": {
+    "net.host": [
+      "127.0.0.1"
+    ]
+  },
+  "at": "2026-11-21T05:48:56.175Z"
+}

@@ -1,0 +1,18 @@
+id: R-940
+version: 1
+owner: Test
+intent: A browser witness observes a result through the pinned CLI
+actor: tester
+given: a fake browser witness checkout
+outcome:
+  - text: the browser reaches the result
+    oracle: "GET /api/projects returns 1 item"
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities:
+  net.host: ["127.0.0.1"]
+witness:
+  kind: browser
+  target: http://127.0.0.1:4318/signup
+  timeout_s: 30

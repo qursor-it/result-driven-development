@@ -1,0 +1,19 @@
+id: R-009
+version: 1
+owner: Gianmarco Ferruzzi
+intent: A new visitor signs up and creates their first project, witnessed through rdd witness
+actor: anonymous visitor, desktop
+given: page /signup of the qursor-qa-tester demo (demo/server.mjs, port 4318), no existing account
+outcome:
+  - text: a project owned by the new user exists
+    oracle: "GET /api/projects?owner=<email> returns 1 item owned by the new user"
+  - text: the user sees that project's dashboard
+thresholds:
+  runs: 1
+  success_rate: 1
+capabilities:
+  net.host: ["127.0.0.1"]
+witness:
+  kind: browser
+  target: http://127.0.0.1:4318/signup
+  timeout_s: 900
