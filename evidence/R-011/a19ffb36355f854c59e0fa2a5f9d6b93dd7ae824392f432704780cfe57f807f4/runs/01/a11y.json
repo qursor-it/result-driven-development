@@ -1,0 +1,29 @@
+{
+  "serious": 0,
+  "pages": [
+    {
+      "page": "projects_1_h1_rdd_project_1",
+      "violations": []
+    },
+    {
+      "page": "projects_1_title_rdd_project_1_qa_notebook",
+      "violations": []
+    },
+    {
+      "page": "projects_new_h1_create_your_first_project",
+      "violations": []
+    },
+    {
+      "page": "projects_new_title_create_your_first_project_qa_notebook",
+      "violations": []
+    },
+    {
+      "page": "signup_h1_create_your_account",
+      "violations": []
+    },
+    {
+      "page": "signup_title_sign_up_qa_notebook",
+      "violations": []
+    }
+  ]
+}

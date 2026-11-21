@@ -31,7 +31,13 @@
           "n": { "type": "integer" },
           "status": { "enum": ["success", "failure", "inconclusive"] },
           "time_to_result_s": { "type": "number" },
-          "steps": { "type": "integer" },
+          "steps": { "type": "integer", "minimum": 0 },
+          "serious_a11y_violations": { "type": "integer", "minimum": 0 },
+          "errors": { "type": "integer", "minimum": 0 },
+          "lcp_ms": { "type": "number", "minimum": 0 },
+          "cls": { "type": "number", "minimum": 0 },
+          "inp_ms": { "type": "number", "minimum": 0 },
+          "memory_mb": { "type": "number", "minimum": 0 },
           "oracles": { "type": "array", "items": { "type": "object", "properties": { "oracle": { "type": "string" }, "ok": { "type": "boolean" }, "found": {} } } },
           "artifacts": { "type": "array", "items": { "type": "string" } }
         }

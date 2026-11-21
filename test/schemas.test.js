@@ -49,6 +49,27 @@ test("an evidence bundle with verdict maybe fails", () => {
   assert.equal(evidence({ ...validEvidence, verdict: "maybe" }), false);
 });
 
+test("a run with browser metrics is accepted and a negative error count is rejected", () => {
+  const run = {
+    n: 1,
+    status: "success",
+    errors: 0,
+    lcp_ms: 1200.5,
+    cls: 0.02,
+    inp_ms: 80,
+    serious_a11y_violations: 0,
+  };
+  assert.equal(
+    evidence({ ...validEvidence, runs: [run] }),
+    true,
+    JSON.stringify(evidence.errors),
+  );
+  assert.equal(
+    evidence({ ...validEvidence, runs: [{ ...run, errors: -1 }] }),
+    false,
+  );
+});
+
 test("an evidence bundle with a bad at fails", () => {
   assert.equal(evidence({ ...validEvidence, at: "not-a-date" }), false);
 });

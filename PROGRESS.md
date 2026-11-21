@@ -112,3 +112,11 @@ Append-only log written by agents. Newest entries at the bottom.
 - witness (lead): R-010 observed 3/3 (bundle febb59f6…); with the fixture made valid → refuted; R-014 example without its sidecar → validate exit 1 code sidecar
 - verified: npm run ci exit 0, 168/168, oracle-sidecar schema check ok
 - P2 note: P1 src/validate.js and spec/ changed; P2's vendored snapshot (47f27db) stays valid until it re-vendors
+
+## 2026-11-21T07:40 T-011 done
+- ADR-0019 Proposed: per-run metric vocabulary. Existing `max_steps`/`steps` and `serious_a11y_violations`; new optional upper bounds `max_errors`/`errors`, `max_lcp_ms`/`lcp_ms`, `max_cls`/`cls`, `max_inp_ms`/`inp_ms`; a set bound whose field a Witness does not emit is inconclusive. Scores: (a) name now 8, (b) wait for P2 5, (c) p75 Web Vitals 6
+- src/verdict.js: the four bounds in RUN_BOUNDS/KNOWN_KEYS; spec/evidence.schema.json: run fields typed (non-negative integers/numbers)
+- time to result, steps and a11y per run come from P2's browser Witness; errors and Web Vitals are not emitted by P2 yet (request to the MASTER)
+- contract results/R-011.result.yaml + sidecar (3 runs, p50 ≤ 300 s, max_steps 30, a11y 0, anti-result: mail to another address)
+- witness (lead): R-011 observed 3/3 (bundle 88057ad7…): steps 13/13/13, time 167.0/92.9/168.2 s, a11y 0, oracle and anti-result oracle ok; independent decide() cases for the new keys give the expected verdicts
+- verified: npm run ci exit 0, 183/183; all committed bundles validate against the updated evidence schema

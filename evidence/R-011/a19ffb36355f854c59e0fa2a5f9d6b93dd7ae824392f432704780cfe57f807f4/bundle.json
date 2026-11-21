@@ -1,0 +1,99 @@
+{
+  "result": "R-011",
+  "contract_sha256": "af9054cdfca83663f5c210a003de503d1a69d473f3239c851b1cb96f0f2c3798",
+  "build": {
+    "sha256": "a19ffb36355f854c59e0fa2a5f9d6b93dd7ae824392f432704780cfe57f807f4"
+  },
+  "witness": {
+    "kind": "browser",
+    "version": "0.1.0"
+  },
+  "verdict": "observed",
+  "reasons": [],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 166.988,
+      "steps": 13,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects?owner=<email> returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/01/a11y.json",
+        "runs/01/explorbot.log",
+        "runs/01/report.html",
+        "runs/01/run.json",
+        "runs/01/tests.md"
+      ]
+    },
+    {
+      "n": 2,
+      "status": "success",
+      "time_to_result_s": 92.9,
+      "steps": 13,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects?owner=<email> returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/02/a11y.json",
+        "runs/02/explorbot.log",
+        "runs/02/report.html",
+        "runs/02/run.json",
+        "runs/02/tests.md"
+      ]
+    },
+    {
+      "n": 3,
+      "status": "success",
+      "time_to_result_s": 168.204,
+      "steps": 13,
+      "serious_a11y_violations": 0,
+      "oracles": [
+        {
+          "oracle": "GET /api/projects?owner=<email> returns 1 item owned by the new user",
+          "ok": true,
+          "found": {
+            "status": 200,
+            "length": 1
+          }
+        }
+      ],
+      "artifacts": [
+        "runs/03/a11y.json",
+        "runs/03/explorbot.log",
+        "runs/03/report.html",
+        "runs/03/run.json",
+        "runs/03/tests.md"
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 1,
+    "p50_time_to_result_s": 166.988,
+    "p95_time_to_result_s": 168.204,
+    "inconclusive_rate": 0
+  },
+  "capabilities_used": {
+    "net.host": [
+      "127.0.0.1"
+    ]
+  },
+  "at": "2026-11-21T06:07:45.134Z"
+}

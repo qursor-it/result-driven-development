@@ -21,7 +21,7 @@ Format: `- [ ] T-NNN title — refs`. Done: `- [x]`. Blocked: append `BLOCKED: r
 
 - [x] T-009 Witness `browser` adapter: contract → qursor-qa-tester run (intent as goal, budgets as limits) → bundle; reuse its timeline/manifest as artifacts — pilots/witness.md
 - [x] T-010 HTTP oracles for browser contracts (final state via API, not via UI)
-- [ ] T-011 Metrics per run: time to result, steps, errors; a11y and Core Web Vitals as optional thresholds
+- [x] T-011 Metrics per run: time to result, steps, errors; a11y and Core Web Vitals as optional thresholds
 - [ ] T-012 Contract R-014 observed on the qursor-qa-tester demo server with 20 runs
 
 ## M3 — Gate and Watch

@@ -7,6 +7,10 @@ const RUN_BOUNDS = [
   { key: "max_steps", field: "steps" },
   { key: "max_memory_mb", field: "memory_mb" },
   { key: "serious_a11y_violations", field: "serious_a11y_violations" },
+  { key: "max_errors", field: "errors" },
+  { key: "max_lcp_ms", field: "lcp_ms" },
+  { key: "max_cls", field: "cls" },
+  { key: "max_inp_ms", field: "inp_ms" },
 ];
 
 const KNOWN_KEYS = new Set([
@@ -17,6 +21,10 @@ const KNOWN_KEYS = new Set([
   "max_steps",
   "max_memory_mb",
   "serious_a11y_violations",
+  "max_errors",
+  "max_lcp_ms",
+  "max_cls",
+  "max_inp_ms",
   "max_inconclusive_rate",
 ]);
 

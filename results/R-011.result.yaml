@@ -1,0 +1,24 @@
+id: R-011
+version: 1
+owner: Gianmarco Ferruzzi
+intent: The interaction cost of signing up and creating a first project is measured on every run
+actor: anonymous visitor, desktop
+given: page /signup of the qursor-qa-tester demo (demo/server.mjs, port 4318), state reset before each run
+outcome:
+  - text: a project owned by the new user exists
+    oracle: "GET /api/projects?owner=<email> returns 1 item owned by the new user"
+  - text: the user sees that project's dashboard
+thresholds:
+  runs: 3
+  success_rate: 0.66
+  p50_time_to_result_s: 300
+  max_steps: 30
+  serious_a11y_violations: 0
+anti_results:
+  - an email is sent to an address other than the one entered
+capabilities:
+  net.host: ["127.0.0.1"]
+witness:
+  kind: browser
+  target: http://127.0.0.1:4318/signup
+  timeout_s: 900

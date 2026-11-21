@@ -1,0 +1,12 @@
+{
+  "exitCode": 0,
+  "timedOut": false,
+  "wall_clock_s": 228.296094,
+  "tests": [
+    {
+      "title": "Sign up with the provided credentials and create the first project so the new user sees that project's dashboard.",
+      "status": "passed",
+      "steps": 13
+    }
+  ]
+}
