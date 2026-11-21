@@ -120,3 +120,10 @@ Append-only log written by agents. Newest entries at the bottom.
 - contract results/R-011.result.yaml + sidecar (3 runs, p50 ≤ 300 s, max_steps 30, a11y 0, anti-result: mail to another address)
 - witness (lead): R-011 observed 3/3 (bundle 88057ad7…): steps 13/13/13, time 167.0/92.9/168.2 s, a11y 0, oracle and anti-result oracle ok; independent decide() cases for the new keys give the expected verdicts
 - verified: npm run ci exit 0, 183/183; all committed bundles validate against the updated evidence schema
+
+## 2026-11-21T08:00 T-013 done
+- ADR-0020 Proposed: Gatekeeper. A contract is touched by a change to its own file, sidecar, hidden oracles, fixtures, repo-file witness.target, its Witness (`witnesses/<kind>/`) or anything under its `capabilities.fs.read`; `--contract` forces, `--all` takes all. Scores: (a) contract-declared paths 8, (b) witness everything 5, (c) separate map file 4. Decision block (exit 1: refuted, Witness error, invalid contract, undeclared capability use) / owner (exit 3: inconclusive or capability diff) / pass (exit 0)
+- `rdd gate --base <ref> --out <dir> [--contract p]... [--all] [--ledger p] [--text]`: src/gate.js, src/render-gate.js, src/witnesses.js (Witness registry shared with `rdd witness`); report `<out>/gate.json`; capability diff vs `git show <base>:<contract>`; undeclared use from bundle `capabilities_used`
+- contract results/R-013.result.yaml (gate blocks a broken result, named, exit 1) with fixture results/examples/fixtures/R-013/broken.result.yaml (R-913, a cli result that does not hold)
+- witness (lead): R-013 observed 3/3 (bundle b3e3acdb…); fixture made to hold → R-013 refuted; real gate `--base main` on the T-013 change: touched R-002, R-005, R-008, R-010, R-013, all observed, decision owner (R-013 is new, so its capabilities are a diff), browser and aleph contracts not touched
+- verified: npm run ci exit 0, 206/206

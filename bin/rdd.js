@@ -1,13 +1,18 @@
 #!/usr/bin/env node
 import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { parse } from "yaml";
 import { validateContractFile, validateSidecarFile } from "../src/validate.js";
 import { appendBundles, history, readLedger } from "../src/ledger.js";
 import { renderLedger } from "../src/render-ledger.js";
+import { runGate } from "../src/gate.js";
+import { renderGate } from "../src/render-gate.js";
+import { loadWitness } from "../src/witnesses.js";
 
 const USAGE =
   "usage: rdd validate <file>... | rdd witness <contract.yaml> [--target <target>] --out <dir> | " +
+  "rdd gate --base <ref> --out <dir> [--contract <path>]... [--all] [--ledger <path>] [--text] | " +
   "rdd ledger append <bundle.json>... [--ledger <path>] | rdd ledger <R-NNN> [--ledger <path>] [--text]";
 
 function write(fields) {
@@ -41,12 +46,6 @@ function validateCommand(files) {
   }
   return ok ? 0 : 1;
 }
-
-const WITNESSES = new Map([
-  ["cli", () => import("../witnesses/cli/index.js")],
-  ["aleph", () => import("../witnesses/aleph/index.js")],
-  ["browser", () => import("../witnesses/browser/index.js")],
-]);
 
 async function witnessCommand(args) {
   let parsed;
@@ -93,11 +92,11 @@ async function witnessCommand(args) {
   }
 
   const kind = contract.witness.kind;
-  const loadWitness = WITNESSES.get(kind);
-  if (!loadWitness) return usage(`unsupported witness kind: ${kind}`);
+  const loader = loadWitness(kind);
+  if (!loader) return usage(`unsupported witness kind: ${kind}`);
 
   try {
-    const { witness } = await loadWitness();
+    const { witness } = await loader;
     const result = witness({
       contractPath,
       target: parsed.values.target,
@@ -114,6 +113,66 @@ async function witnessCommand(args) {
     write(fields);
     return 2;
   }
+}
+
+async function gateCommand(args) {
+  let parsed;
+  try {
+    parsed = parseArgs({
+      args,
+      allowPositionals: true,
+      options: {
+        base: { type: "string" },
+        out: { type: "string" },
+        contract: { type: "string", multiple: true },
+        all: { type: "boolean" },
+        ledger: { type: "string" },
+        text: { type: "boolean" },
+      },
+    });
+  } catch (error) {
+    return usage(error.message);
+  }
+
+  if (parsed.positionals.length > 0) return usage("gate takes no positional arguments");
+  const { base, out } = parsed.values;
+  if (!base) return usage("gate requires --base");
+  if (!out) return usage("gate requires --out");
+
+  let result;
+  try {
+    result = await runGate({
+      base,
+      out,
+      contracts: parsed.values.contract ?? [],
+      all: parsed.values.all === true,
+      ledger: parsed.values.ledger,
+    });
+  } catch (error) {
+    write({ level: "error", code: error.code ?? "gate", message: error.message });
+    return 2;
+  }
+
+  const { decision, exitCode, report } = result;
+  for (const entry of report.contracts) {
+    write({
+      level: "info",
+      code: "gate-contract",
+      result: entry.id,
+      verdict: entry.verdict,
+      reasons: entry.reasons,
+    });
+  }
+
+  if (parsed.values.text) process.stdout.write(renderGate(report));
+
+  write({
+    level: decision === "block" ? "error" : "info",
+    code: "gate",
+    decision,
+    report: join(out, "gate.json"),
+  });
+  return exitCode;
 }
 
 function ledgerCommand(args) {
@@ -177,6 +236,7 @@ function ledgerCommand(args) {
 const COMMANDS = new Map([
   ["validate", validateCommand],
   ["witness", witnessCommand],
+  ["gate", gateCommand],
   ["ledger", ledgerCommand],
 ]);
 

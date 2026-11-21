@@ -1,0 +1,19 @@
+id: R-913
+version: 1
+owner: Gianmarco Ferruzzi
+intent: Fixture for R-013 - a result that does not hold (an off-origin sidecar is reported valid)
+actor: fixture
+given: results/examples/fixtures/R-010/off-origin.oracles.yaml
+outcome:
+  - text: rdd validate accepts the sidecar (it does not)
+    oracle: "exit_code == 0"
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities:
+  fs.read: ["results", "spec", "bin", "src"]
+witness:
+  kind: cli
+  target: bin/rdd.js
+  args: ["validate", "results/examples/fixtures/R-010/off-origin.oracles.yaml"]
+  timeout_s: 30

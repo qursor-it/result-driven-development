@@ -1,0 +1,103 @@
+{
+  "result": "R-013",
+  "contract_sha256": "0b056a488758bfe29c6b64f37e9c1225b78b0650c56a8b4c8372ce9497ba5b12",
+  "build": {
+    "sha256": "418d6be1efa4d69adcf8edf78f36c981c4618dbabdb5cd0c84247ba75396189f"
+  },
+  "witness": {
+    "kind": "cli",
+    "version": "1.0.0"
+  },
+  "verdict": "observed",
+  "reasons": [],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 1.38942,
+      "oracles": [
+        {
+          "oracle": "exit_code == 1",
+          "ok": true,
+          "found": 1
+        },
+        {
+          "oracle": "stderr contains \"\\\"decision\\\":\\\"block\\\"\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r013/R-913/bundle.json\",\"sha256\":\"efcab6433458585c15414e8c2ac00e8277e6376"
+        },
+        {
+          "oracle": "stderr contains \"R-913\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r013/R-913/bundle.json\",\"sha256\":\"efcab6433458585c15414e8c2ac00e8277e6376"
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "status": "success",
+      "time_to_result_s": 1.522214,
+      "oracles": [
+        {
+          "oracle": "exit_code == 1",
+          "ok": true,
+          "found": 1
+        },
+        {
+          "oracle": "stderr contains \"\\\"decision\\\":\\\"block\\\"\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r013/R-913/bundle.json\",\"sha256\":\"2fae67b628e9109968b82715c1fa76bdba30e51"
+        },
+        {
+          "oracle": "stderr contains \"R-913\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r013/R-913/bundle.json\",\"sha256\":\"2fae67b628e9109968b82715c1fa76bdba30e51"
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "status": "success",
+      "time_to_result_s": 1.485299,
+      "oracles": [
+        {
+          "oracle": "exit_code == 1",
+          "ok": true,
+          "found": 1
+        },
+        {
+          "oracle": "stderr contains \"\\\"decision\\\":\\\"block\\\"\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r013/R-913/bundle.json\",\"sha256\":\"62e4648695b7a3cc7eea7cf7267b70f67b7d0a1"
+        },
+        {
+          "oracle": "stderr contains \"R-913\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r013/R-913/bundle.json\",\"sha256\":\"62e4648695b7a3cc7eea7cf7267b70f67b7d0a1"
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 1,
+    "p50_time_to_result_s": 1.485299,
+    "p95_time_to_result_s": 1.522214,
+    "inconclusive_rate": 0
+  },
+  "at": "2026-11-21T06:16:53.214Z"
+}

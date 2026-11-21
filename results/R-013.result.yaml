@@ -1,0 +1,27 @@
+id: R-013
+version: 1
+owner: Gianmarco Ferruzzi
+intent: A change that breaks a result is blocked by the Gatekeeper, with the reason
+actor: CI on a pull request
+given: the checkout; results/examples/fixtures/R-013/broken.result.yaml is a cli contract whose result does not hold
+outcome:
+  - text: the gate blocks with exit 1
+    oracle: "exit_code == 1"
+  - text: the decision is block
+    oracle: 'stderr contains "\"decision\":\"block\""'
+  - text: the refuted contract is named
+    oracle: 'stderr contains "R-913"'
+  - text: nothing on stdout without --text
+    oracle: 'stdout == ""'
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 20
+capabilities:
+  fs.read: ["results", "spec", "bin", "src", "witnesses"]
+  fs.write: ["/tmp/rdd-r013"]
+witness:
+  kind: cli
+  target: bin/rdd.js
+  args: ["gate", "--base", "HEAD", "--contract", "results/examples/fixtures/R-013/broken.result.yaml", "--out", "/tmp/rdd-r013"]
+  timeout_s: 60
