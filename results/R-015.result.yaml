@@ -1,0 +1,26 @@
+id: R-015
+version: 1
+owner: Gianmarco Ferruzzi
+intent: An Owner reads in one command what was accepted this month, what Watch found broken, and how long acceptance took
+actor: Result Owner at the end of the month
+given: results/examples/fixtures/R-015/ledger.jsonl (R-002 and R-005 first observed in 2026-11, R-008 in 2026-10; Watch refuted R-002 in 2026-11 and R-008 in 2026-12) and the committed contracts in results/
+outcome:
+  - text: the report exits 0
+    oracle: "exit_code == 0"
+  - text: two results accepted in November, R-008 (October) excluded
+    oracle: 'stdout contains "\"accepted_without_code_review\":{\"count\":2,\"results\":[\"R-002\",\"R-005\"]}"'
+  - text: one regression found by Watch in November
+    oracle: 'stdout contains "\"regressions_found_by_watch\":{\"count\":1,\"results\":[\"R-002\"]}"'
+  - text: time from contract to acceptance is reported per result
+    oracle: 'stdout contains "\"time_to_acceptance_h\":{\"p50\":"'
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 10
+capabilities:
+  fs.read: ["results", "spec", "bin", "src", ".git"]
+witness:
+  kind: cli
+  target: bin/rdd.js
+  args: ["report", "--month", "2026-11", "--ledger", "results/examples/fixtures/R-015/ledger.jsonl"]
+  timeout_s: 30

@@ -11,12 +11,15 @@ import { renderGate } from "../src/render-gate.js";
 import { runWatch } from "../src/watch.js";
 import { renderWatch } from "../src/render-watch.js";
 import { loadWitness } from "../src/witnesses.js";
+import { monthRange, monthlyReport } from "../src/report.js";
+import { renderReport } from "../src/render-report.js";
 
 const USAGE =
   "usage: rdd validate <file>... | rdd witness <contract.yaml> [--target <target>] --out <dir> | " +
   "rdd gate --base <ref> --out <dir> [--contract <path>]... [--all] [--ledger <path>] [--text] | " +
   "rdd watch --out <dir> [--results <dir>] [--ledger <path>] [--now <iso>] [--dry-run] [--text] | " +
-  "rdd ledger append <bundle.json>... [--ledger <path>] | rdd ledger <R-NNN> [--ledger <path>] [--text]";
+  "rdd ledger append <bundle.json>... [--ledger <path>] | rdd ledger <R-NNN> [--ledger <path>] [--text] | " +
+  "rdd report --month <YYYY-MM> [--ledger <path>] [--results <dir>] [--text]";
 
 function write(fields) {
   process.stderr.write(`${JSON.stringify(fields)}\n`);
@@ -307,12 +310,52 @@ function ledgerCommand(args) {
   return 0;
 }
 
+function reportCommand(args) {
+  let parsed;
+  try {
+    parsed = parseArgs({
+      args,
+      allowPositionals: true,
+      options: {
+        month: { type: "string" },
+        ledger: { type: "string" },
+        results: { type: "string" },
+        text: { type: "boolean" },
+      },
+    });
+  } catch (error) {
+    return usage(error.message);
+  }
+
+  if (parsed.positionals.length > 0) return usage("report takes no positional arguments");
+  const { month, ledger, results, text } = parsed.values;
+  if (!month) return usage("report requires --month");
+
+  try {
+    monthRange(month);
+  } catch (error) {
+    return usage(error.message);
+  }
+
+  let report;
+  try {
+    report = monthlyReport({ month, ledger, results });
+  } catch (error) {
+    write({ level: "error", code: error.code ?? "report", message: error.message });
+    return 1;
+  }
+
+  process.stdout.write(text ? renderReport(report) : `${JSON.stringify(report)}\n`);
+  return 0;
+}
+
 const COMMANDS = new Map([
   ["validate", validateCommand],
   ["witness", witnessCommand],
   ["gate", gateCommand],
   ["watch", watchCommand],
   ["ledger", ledgerCommand],
+  ["report", reportCommand],
 ]);
 
 const [name, ...args] = process.argv.slice(2);

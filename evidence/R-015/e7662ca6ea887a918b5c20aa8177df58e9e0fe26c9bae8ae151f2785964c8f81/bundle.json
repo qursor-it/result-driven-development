@@ -1,0 +1,103 @@
+{
+  "result": "R-015",
+  "contract_sha256": "339a7c9156557811f2636d9e3ac102c73c24875e8547755f88d2636151759b85",
+  "build": {
+    "sha256": "e7662ca6ea887a918b5c20aa8177df58e9e0fe26c9bae8ae151f2785964c8f81"
+  },
+  "witness": {
+    "kind": "cli",
+    "version": "1.0.0"
+  },
+  "verdict": "observed",
+  "reasons": [],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 0.595218,
+      "oracles": [
+        {
+          "oracle": "exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "stdout contains \"\\\"accepted_without_code_review\\\":{\\\"count\\\":2,\\\"results\\\":[\\\"R-002\\\",\\\"R-005\\\"]}\"",
+          "ok": true,
+          "found": "{\"month\":\"2026-11\",\"accepted_without_code_review\":{\"count\":2,\"results\":[\"R-002\",\"R-005\"]},\"regressions_found_by_watch\":{\"count\":1,\"results\":[\"R-002\"]},\"time_to_acceptance_h\":{\"p50\":0,\"results\":{\"R-002"
+        },
+        {
+          "oracle": "stdout contains \"\\\"regressions_found_by_watch\\\":{\\\"count\\\":1,\\\"results\\\":[\\\"R-002\\\"]}\"",
+          "ok": true,
+          "found": "{\"month\":\"2026-11\",\"accepted_without_code_review\":{\"count\":2,\"results\":[\"R-002\",\"R-005\"]},\"regressions_found_by_watch\":{\"count\":1,\"results\":[\"R-002\"]},\"time_to_acceptance_h\":{\"p50\":0,\"results\":{\"R-002"
+        },
+        {
+          "oracle": "stdout contains \"\\\"time_to_acceptance_h\\\":{\\\"p50\\\":\"",
+          "ok": true,
+          "found": "{\"month\":\"2026-11\",\"accepted_without_code_review\":{\"count\":2,\"results\":[\"R-002\",\"R-005\"]},\"regressions_found_by_watch\":{\"count\":1,\"results\":[\"R-002\"]},\"time_to_acceptance_h\":{\"p50\":0,\"results\":{\"R-002"
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "status": "success",
+      "time_to_result_s": 0.598414,
+      "oracles": [
+        {
+          "oracle": "exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "stdout contains \"\\\"accepted_without_code_review\\\":{\\\"count\\\":2,\\\"results\\\":[\\\"R-002\\\",\\\"R-005\\\"]}\"",
+          "ok": true,
+          "found": "{\"month\":\"2026-11\",\"accepted_without_code_review\":{\"count\":2,\"results\":[\"R-002\",\"R-005\"]},\"regressions_found_by_watch\":{\"count\":1,\"results\":[\"R-002\"]},\"time_to_acceptance_h\":{\"p50\":0,\"results\":{\"R-002"
+        },
+        {
+          "oracle": "stdout contains \"\\\"regressions_found_by_watch\\\":{\\\"count\\\":1,\\\"results\\\":[\\\"R-002\\\"]}\"",
+          "ok": true,
+          "found": "{\"month\":\"2026-11\",\"accepted_without_code_review\":{\"count\":2,\"results\":[\"R-002\",\"R-005\"]},\"regressions_found_by_watch\":{\"count\":1,\"results\":[\"R-002\"]},\"time_to_acceptance_h\":{\"p50\":0,\"results\":{\"R-002"
+        },
+        {
+          "oracle": "stdout contains \"\\\"time_to_acceptance_h\\\":{\\\"p50\\\":\"",
+          "ok": true,
+          "found": "{\"month\":\"2026-11\",\"accepted_without_code_review\":{\"count\":2,\"results\":[\"R-002\",\"R-005\"]},\"regressions_found_by_watch\":{\"count\":1,\"results\":[\"R-002\"]},\"time_to_acceptance_h\":{\"p50\":0,\"results\":{\"R-002"
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "status": "success",
+      "time_to_result_s": 0.657905,
+      "oracles": [
+        {
+          "oracle": "exit_code == 0",
+          "ok": true,
+          "found": 0
+        },
+        {
+          "oracle": "stdout contains \"\\\"accepted_without_code_review\\\":{\\\"count\\\":2,\\\"results\\\":[\\\"R-002\\\",\\\"R-005\\\"]}\"",
+          "ok": true,
+          "found": "{\"month\":\"2026-11\",\"accepted_without_code_review\":{\"count\":2,\"results\":[\"R-002\",\"R-005\"]},\"regressions_found_by_watch\":{\"count\":1,\"results\":[\"R-002\"]},\"time_to_acceptance_h\":{\"p50\":0,\"results\":{\"R-002"
+        },
+        {
+          "oracle": "stdout contains \"\\\"regressions_found_by_watch\\\":{\\\"count\\\":1,\\\"results\\\":[\\\"R-002\\\"]}\"",
+          "ok": true,
+          "found": "{\"month\":\"2026-11\",\"accepted_without_code_review\":{\"count\":2,\"results\":[\"R-002\",\"R-005\"]},\"regressions_found_by_watch\":{\"count\":1,\"results\":[\"R-002\"]},\"time_to_acceptance_h\":{\"p50\":0,\"results\":{\"R-002"
+        },
+        {
+          "oracle": "stdout contains \"\\\"time_to_acceptance_h\\\":{\\\"p50\\\":\"",
+          "ok": true,
+          "found": "{\"month\":\"2026-11\",\"accepted_without_code_review\":{\"count\":2,\"results\":[\"R-002\",\"R-005\"]},\"regressions_found_by_watch\":{\"count\":1,\"results\":[\"R-002\"]},\"time_to_acceptance_h\":{\"p50\":0,\"results\":{\"R-002"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 1,
+    "p50_time_to_result_s": 0.598414,
+    "p95_time_to_result_s": 0.657905,
+    "inconclusive_rate": 0
+  },
+  "at": "2026-11-21T06:30:16.790Z"
+}

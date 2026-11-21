@@ -137,3 +137,11 @@ Append-only log written by agents. Newest entries at the bottom.
 - verified: npm run ci exit 0, 220/220; R-016 command line exits 1 with empty stdout and writes watch.json (R-916 due/refuted/reopened, R-917 not-due); fixture ledger byte-identical under --dry-run; a copied ledger gains exactly one `source: "watch"` refuted R-916 line
 - witness (lead): R-016 observed 3/3 (bundle 410768b8…), fixture ledger byte-identical; R-916 made to hold → R-016 refuted; real `rdd watch --dry-run` on this repo: only R-014 has watch.interval, state not-accepted (never observed), exit 0
 - note: the times in the headings of the T-009..T-013 entries above were estimates written by the lead, not wall-clock times; from this entry on, headings use `date -u`
+
+## 2026-11-21T06:30 T-015 done
+- ADR-0022 Proposed: `rdd report --month YYYY-MM [--ledger] [--results] [--text]` from the ledger plus git history. Accepted without code review = first observed in the month (ADR-0003: no line-by-line review ever); regressions found by Watch = refuted entries with source watch; time to acceptance = hours from the commit that added the contract to its first observed, negative → 0, p50. Scores: (a) ledger + git 8, (b) separate counters 4, (c) GitHub reviews 3
+- src/report.js, src/render-report.js, `rdd report` in bin/rdd.js; compact JSON on stdout, --text for humans
+- contract results/R-015.result.yaml with fixture ledger results/examples/fixtures/R-015/ledger.jsonl (October and December entries to test the month bounds)
+- witness (lead): R-015 observed 3/3 (bundle 81b137cb…); fixture without source watch → R-015 refuted
+- real report for 2026-11 on this repo: 24 results accepted, 0 regressions found by Watch, time to acceptance p50 0 h — contracts here were committed with the code after the witness, so the metric is 0 by construction; it becomes meaningful when the Owner commits the contract (gate 1) before the Builder starts
+- verified: npm run ci exit 0, 235/235
