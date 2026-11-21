@@ -7,7 +7,7 @@ const validateEvidence = compileSchema("evidence");
 
 export const DEFAULT_LEDGER_PATH = "ledger/results.jsonl";
 
-export function ledgerEntry(bundle, bundleSha256) {
+export function ledgerEntry(bundle, bundleSha256, { source } = {}) {
   const entry = {
     result: bundle.result,
     verdict: bundle.verdict,
@@ -20,10 +20,13 @@ export function ledgerEntry(bundle, bundleSha256) {
   if (Array.isArray(bundle.reasons) && bundle.reasons.length > 0) {
     entry.reasons = bundle.reasons;
   }
+  if (source !== undefined) {
+    entry.source = source;
+  }
   return entry;
 }
 
-function readBundle(bundlePath) {
+function readBundle(bundlePath, source) {
   const bytes = readFileSync(bundlePath);
   const bundleSha256 = sha256(bytes);
 
@@ -40,7 +43,7 @@ function readBundle(bundlePath) {
     );
   }
 
-  return { entry: ledgerEntry(bundle, bundleSha256), bundleSha256 };
+  return { entry: ledgerEntry(bundle, bundleSha256, { source }), bundleSha256 };
 }
 
 function compareEntries(a, b) {
@@ -51,8 +54,8 @@ function compareEntries(a, b) {
   return 0;
 }
 
-export function appendBundles(bundlePaths, { ledgerPath = DEFAULT_LEDGER_PATH } = {}) {
-  const candidates = bundlePaths.map((bundlePath) => readBundle(bundlePath));
+export function appendBundles(bundlePaths, { ledgerPath = DEFAULT_LEDGER_PATH, source } = {}) {
+  const candidates = bundlePaths.map((bundlePath) => readBundle(bundlePath, source));
   const existing = readLedger(ledgerPath);
   const seen = new Set(existing.map((entry) => entry.bundle_sha256));
 

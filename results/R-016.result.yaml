@@ -1,0 +1,29 @@
+id: R-016
+version: 1
+owner: Gianmarco Ferruzzi
+intent: Watch re-witnesses accepted results that are due and reopens the one that stopped holding
+actor: scheduler (cron) calling rdd watch
+given: fixture results R-916 (accepted 2026-11-01, no longer holds) and R-917 (accepted 2026-11-20T12:00Z), both watch.interval 24h; now = 2026-11-21T00:00Z
+outcome:
+  - text: watch exits 1 because a result was reopened
+    oracle: "exit_code == 1"
+  - text: only R-916 is reopened (R-917 is not due)
+    oracle: 'stderr contains "\"reopened\":[\"R-916\"]"'
+  - text: the reopen is announced
+    oracle: 'stderr contains "\"code\":\"reopen\""'
+  - text: nothing on stdout without --text
+    oracle: 'stdout == ""'
+thresholds:
+  runs: 3
+  success_rate: 1.0
+  p95_time_to_result_s: 20
+anti_results:
+  - the fixture ledger is modified (--dry-run)
+capabilities:
+  fs.read: ["results", "spec", "bin", "src", "witnesses"]
+  fs.write: ["/tmp/rdd-r016"]
+witness:
+  kind: cli
+  target: bin/rdd.js
+  args: ["watch", "--results", "results/examples/fixtures/R-016/results", "--ledger", "results/examples/fixtures/R-016/ledger.jsonl", "--now", "2026-11-21T00:00:00Z", "--dry-run", "--out", "/tmp/rdd-r016"]
+  timeout_s: 60

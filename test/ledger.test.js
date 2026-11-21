@@ -94,6 +94,41 @@ test("ledgerEntry includes reasons last only when non-empty", () => {
   assert.deepEqual(entry.reasons, ["one", "two"]);
 });
 
+test("ledgerEntry adds source last only when given", () => {
+  const bundle = buildBundle({
+    result: "R-001",
+    contractPath: CONTRACT,
+    buildSha256: "b".repeat(64),
+    witness: { kind: "cli", version: "0.1.0" },
+    verdict: "observed",
+    runs: [],
+    at: "2026-11-20T12:00:00.000Z",
+  });
+
+  const plain = ledgerEntry(bundle, "a".repeat(64));
+  assert.equal("source" in plain, false);
+
+  const watched = ledgerEntry(bundle, "a".repeat(64), { source: "watch" });
+  assert.deepEqual(Object.keys(watched).slice(-1), ["source"]);
+  assert.equal(watched.source, "watch");
+});
+
+test("appendBundles passes source through to the appended entries", (t) => {
+  const root = tempDir(t);
+  const ledgerPath = join(root, "ledger", "results.jsonl");
+  const bundle = makeBundle(root, "watched", { verdict: "refuted" });
+  const plain = makeBundle(root, "plain", { at: "2026-11-20T13:00:00.000Z" });
+
+  appendBundles([bundle], { ledgerPath, source: "watch" });
+  appendBundles([plain], { ledgerPath });
+
+  const entries = readLedger(ledgerPath);
+  assert.equal(entries[0].source, "watch");
+  assert.equal(entries[0].result, "R-001");
+  assert.equal(entries[0].verdict, "refuted");
+  assert.equal("source" in entries[1], false);
+});
+
 test("appendBundles appends sorted entries and readLedger returns them", (t) => {
   const root = tempDir(t);
   const ledgerPath = join(root, "ledger", "results.jsonl");

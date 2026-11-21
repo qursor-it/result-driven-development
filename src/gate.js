@@ -80,8 +80,8 @@ function walkContracts(dir, root, files) {
   return files;
 }
 
-export function listContracts(root = process.cwd()) {
-  return walkContracts(join(root, "results"), root, []).sort();
+export function listContracts(root = process.cwd(), dir = "results") {
+  return walkContracts(join(root, dir), root, []).sort();
 }
 
 export function touchReasons(contractPath, contract, changed) {

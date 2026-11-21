@@ -27,5 +27,5 @@ Format: `- [ ] T-NNN title — refs`. Done: `- [x]`. Blocked: append `BLOCKED: r
 ## M3 — Gate and Watch
 
 - [x] T-013 Gatekeeper: all contracts touched by a change → witness → block on refuted; capability diff report — ADR-0007, ADR-0008
-- [ ] T-014 Watch: scheduled re-witness of accepted results, reopen on refuted — ADR-0012
+- [x] T-014 Watch: scheduled re-witness of accepted results, reopen on refuted — ADR-0012
 - [ ] T-015 Monthly report: results accepted without code review, regressions found by Watch, time from contract to acceptance

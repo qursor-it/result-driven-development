@@ -1,0 +1,21 @@
+id: R-917
+version: 1
+owner: Gianmarco Ferruzzi
+intent: Fixture for R-016 - an accepted result witnessed recently, not due
+actor: fixture
+given: results/examples/fixtures/R-010/off-origin.oracles.yaml
+outcome:
+  - text: rdd validate rejects the sidecar
+    oracle: "exit_code == 1"
+thresholds:
+  runs: 1
+  success_rate: 1.0
+capabilities:
+  fs.read: ["results", "spec", "bin", "src"]
+witness:
+  kind: cli
+  target: bin/rdd.js
+  args: ["validate", "results/examples/fixtures/R-010/off-origin.oracles.yaml"]
+  timeout_s: 30
+watch:
+  interval: 24h

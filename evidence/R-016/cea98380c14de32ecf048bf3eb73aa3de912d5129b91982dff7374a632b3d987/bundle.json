@@ -1,0 +1,103 @@
+{
+  "result": "R-016",
+  "contract_sha256": "0351ba9b8f01e40d69bf885593b8aa6afc38ecae6aee36a6d47ad990e5d0a67a",
+  "build": {
+    "sha256": "cea98380c14de32ecf048bf3eb73aa3de912d5129b91982dff7374a632b3d987"
+  },
+  "witness": {
+    "kind": "cli",
+    "version": "1.0.0"
+  },
+  "verdict": "observed",
+  "reasons": [],
+  "runs": [
+    {
+      "n": 1,
+      "status": "success",
+      "time_to_result_s": 1.382593,
+      "oracles": [
+        {
+          "oracle": "exit_code == 1",
+          "ok": true,
+          "found": 1
+        },
+        {
+          "oracle": "stderr contains \"\\\"reopened\\\":[\\\"R-916\\\"]\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r016/R-916/bundle.json\",\"sha256\":\"0c349607d8a4e23ae2275de0886fc441088781d"
+        },
+        {
+          "oracle": "stderr contains \"\\\"code\\\":\\\"reopen\\\"\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r016/R-916/bundle.json\",\"sha256\":\"0c349607d8a4e23ae2275de0886fc441088781d"
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "status": "success",
+      "time_to_result_s": 1.238337,
+      "oracles": [
+        {
+          "oracle": "exit_code == 1",
+          "ok": true,
+          "found": 1
+        },
+        {
+          "oracle": "stderr contains \"\\\"reopened\\\":[\\\"R-916\\\"]\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r016/R-916/bundle.json\",\"sha256\":\"6a032e3987241b30ee3ce8d154dbe2a35f20145"
+        },
+        {
+          "oracle": "stderr contains \"\\\"code\\\":\\\"reopen\\\"\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r016/R-916/bundle.json\",\"sha256\":\"6a032e3987241b30ee3ce8d154dbe2a35f20145"
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "status": "success",
+      "time_to_result_s": 1.255339,
+      "oracles": [
+        {
+          "oracle": "exit_code == 1",
+          "ok": true,
+          "found": 1
+        },
+        {
+          "oracle": "stderr contains \"\\\"reopened\\\":[\\\"R-916\\\"]\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r016/R-916/bundle.json\",\"sha256\":\"b89c99f63a74603df39fec9c57da50be99ea8a5"
+        },
+        {
+          "oracle": "stderr contains \"\\\"code\\\":\\\"reopen\\\"\"",
+          "ok": true,
+          "found": "{\"level\":\"info\",\"code\":\"run\",\"n\":1,\"status\":\"failure\"}\n{\"level\":\"info\",\"code\":\"verdict\",\"verdict\":\"refuted\",\"bundle\":\"/tmp/rdd-r016/R-916/bundle.json\",\"sha256\":\"b89c99f63a74603df39fec9c57da50be99ea8a5"
+        },
+        {
+          "oracle": "stdout == \"\"",
+          "ok": true,
+          "found": ""
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "success_rate": 1,
+    "p50_time_to_result_s": 1.255339,
+    "p95_time_to_result_s": 1.382593,
+    "inconclusive_rate": 0
+  },
+  "at": "2026-11-21T06:25:22.297Z"
+}

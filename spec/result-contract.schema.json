@@ -63,7 +63,10 @@
     },
     "watch": {
       "type": "object",
-      "properties": { "interval": { "type": "string", "pattern": "^[0-9]+(m|h|d)$" } }
+      "properties": {
+        "interval": { "type": "string", "pattern": "^[0-9]+(m|h|d)$" },
+        "target": { "type": "string" }
+      }
     },
     "owner": { "type": "string" }
   }

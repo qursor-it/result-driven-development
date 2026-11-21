@@ -8,11 +8,14 @@ import { appendBundles, history, readLedger } from "../src/ledger.js";
 import { renderLedger } from "../src/render-ledger.js";
 import { runGate } from "../src/gate.js";
 import { renderGate } from "../src/render-gate.js";
+import { runWatch } from "../src/watch.js";
+import { renderWatch } from "../src/render-watch.js";
 import { loadWitness } from "../src/witnesses.js";
 
 const USAGE =
   "usage: rdd validate <file>... | rdd witness <contract.yaml> [--target <target>] --out <dir> | " +
   "rdd gate --base <ref> --out <dir> [--contract <path>]... [--all] [--ledger <path>] [--text] | " +
+  "rdd watch --out <dir> [--results <dir>] [--ledger <path>] [--now <iso>] [--dry-run] [--text] | " +
   "rdd ledger append <bundle.json>... [--ledger <path>] | rdd ledger <R-NNN> [--ledger <path>] [--text]";
 
 function write(fields) {
@@ -175,6 +178,77 @@ async function gateCommand(args) {
   return exitCode;
 }
 
+async function watchCommand(args) {
+  let parsed;
+  try {
+    parsed = parseArgs({
+      args,
+      allowPositionals: true,
+      options: {
+        out: { type: "string" },
+        results: { type: "string" },
+        ledger: { type: "string" },
+        now: { type: "string" },
+        "dry-run": { type: "boolean" },
+        text: { type: "boolean" },
+      },
+    });
+  } catch (error) {
+    return usage(error.message);
+  }
+
+  if (parsed.positionals.length > 0) return usage("watch takes no positional arguments");
+  const { out, results, ledger, now } = parsed.values;
+  if (!out) return usage("watch requires --out");
+
+  let nowDate;
+  if (now === undefined) {
+    nowDate = new Date();
+  } else {
+    nowDate = new Date(now);
+    if (Number.isNaN(nowDate.getTime())) return usage(`invalid --now: ${now}`);
+  }
+
+  let result;
+  try {
+    result = await runWatch({
+      out,
+      results: results ?? "results",
+      ledger: ledger ?? "ledger/results.jsonl",
+      now: nowDate,
+      dryRun: parsed.values["dry-run"] === true,
+    });
+  } catch (error) {
+    write({ level: "error", code: error.code ?? "watch", message: error.message });
+    return 2;
+  }
+
+  const { exitCode, report } = result;
+  for (const entry of report.contracts) {
+    write({
+      level: "info",
+      code: "watch-contract",
+      result: entry.id,
+      state: entry.state,
+      verdict: entry.verdict ?? null,
+    });
+  }
+
+  for (const id of report.reopened) {
+    write({ level: "warn", code: "reopen", result: id });
+  }
+
+  if (parsed.values.text) process.stdout.write(renderWatch(report));
+
+  write({
+    level: report.reopened.length > 0 ? "warn" : "info",
+    code: "watch",
+    reopened: report.reopened,
+    report: join(out, "watch.json"),
+  });
+  return exitCode;
+}
+
 function ledgerCommand(args) {
   let parsed;
   try {
@@ -237,6 +311,7 @@ const COMMANDS = new Map([
   ["validate", validateCommand],
   ["witness", witnessCommand],
   ["gate", gateCommand],
+  ["watch", watchCommand],
   ["ledger", ledgerCommand],
 ]);
 

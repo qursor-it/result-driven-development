@@ -127,3 +127,13 @@ Append-only log written by agents. Newest entries at the bottom.
 - contract results/R-013.result.yaml (gate blocks a broken result, named, exit 1) with fixture results/examples/fixtures/R-013/broken.result.yaml (R-913, a cli result that does not hold)
 - witness (lead): R-013 observed 3/3 (bundle b3e3acdb…); fixture made to hold → R-013 refuted; real gate `--base main` on the T-013 change: touched R-002, R-005, R-008, R-010, R-013, all observed, decision owner (R-013 is new, so its capabilities are a diff), browser and aleph contracts not touched
 - verified: npm run ci exit 0, 206/206
+
+## 2026-11-21T06:25 T-014 done
+- ADR-0021 Proposed: one-shot `rdd watch` decides due results from the ledger; any scheduler calls it. Accepted = latest ledger entry `observed`; due = `now - latest.at >= watch.interval` (m/h/d); `watch.target` overrides `witness.target` for Watch only; reopen = refuted ledger entry with `source: "watch"` + `reopen` diagnostic + exit 1. Scores: (a) one-shot 8, (b) daemon 4, (c) edit TASKS/issue 3
+- src/watch.js: `parseInterval`, `latestEntries` (later line wins ties), `watchPlan` (due/not-due/not-accepted, no-interval absent), `runWatch` (runs due contracts sorted by path via src/witnesses.js, writes `<out>/watch.json`, appends bundles with `source: "watch"` unless `--dry-run`); src/render-watch.js for `--text`
+- src/ledger.js: optional `source` on `ledgerEntry`/`appendBundles` (absent for Gatekeeper/manual entries, key order unchanged); src/gate.js: `listContracts(root, dir = "results")` so Watch can walk another results dir
+- bin/rdd.js: `watch --out <dir> [--results] [--ledger] [--now] [--dry-run] [--text]`, JSON diagnostics on stderr (`watch-contract`, `reopen`, `watch`), usage exit 2 for missing `--out` / bad `--now`
+- contract results/R-016.result.yaml + fixtures R-916 (due, refuted → reopened) and R-917 (not-due), watch.interval 24h; spec watch.target added in T-014 setup
+- verified: npm run ci exit 0, 220/220; R-016 command line exits 1 with empty stdout and writes watch.json (R-916 due/refuted/reopened, R-917 not-due); fixture ledger byte-identical under --dry-run; a copied ledger gains exactly one `source: "watch"` refuted R-916 line
+- witness (lead): R-016 observed 3/3 (bundle 410768b8…), fixture ledger byte-identical; R-916 made to hold → R-016 refuted; real `rdd watch --dry-run` on this repo: only R-014 has watch.interval, state not-accepted (never observed), exit 0
+- note: the times in the headings of the T-009..T-013 entries above were estimates written by the lead, not wall-clock times; from this entry on, headings use `date -u`
